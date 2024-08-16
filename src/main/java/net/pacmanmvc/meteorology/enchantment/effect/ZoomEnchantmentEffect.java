@@ -22,16 +22,20 @@ public record ZoomEnchantmentEffect(EnchantmentLevelBasedValue amount) implement
         LivingEntity livingEntity = context.owner();
         if (!world.isClient) {
             if (livingEntity != null && livingEntity.isFallFlying()) {
-                Vec3d vec3d = livingEntity.getRotationVector();
-                Vec3d vec3d2 = livingEntity.getVelocity();
+                Vec3d vecVelocity = livingEntity.getVelocity();
+                float amt = amount.getValue(level) + 0.2f;
                 livingEntity
-                        .setVelocity(
-                                vec3d2.add(
-                                        vec3d.x * 0.1 + (vec3d.x * 1.5 - vec3d2.x) * 0.5, vec3d.y * 0.1 + (vec3d.y * 1.5 - vec3d2.y) * 0.5, vec3d.z * 0.1 + (vec3d.z * 1.5 - vec3d2.z) * 0.5
-                                )
-                        );
+                        .setVelocity(clamp(vecVelocity.multiply(amt, 1, amt), -1, -1, -1, 1, 1, 1));
+                livingEntity.velocityModified = true;
             }
         }
+    }
+
+    private static Vec3d clamp(Vec3d vec, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+        double x = Math.max(Math.min(vec.x, maxX), minX);
+        double y = Math.max(Math.min(vec.y, maxY), minY);
+        double z = Math.max(Math.min(vec.z, maxZ), minZ);
+        return new Vec3d(x, y, z);
     }
 
     @Override
