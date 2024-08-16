@@ -1,0 +1,39 @@
+{
+	"schemaVersion": 1,
+	"id": "meteorology",
+	"version": "1.1.1",
+	"name": "Meteorology",
+	"description": "Explore the new Meteorology profession and everything it has to offer!",
+	"authors": [
+		"PacManMVC"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.pacmanmvc.meteorology.Meteorology"
+		],
+		"fabric-datagen": [
+			"net.pacmanmvc.meteorology.MeteorologyDataGenerator"
+		],
+		"client": [
+			"net.pacmanmvc.meteorology.MeteorologyClient"
+		]
+	},
+	"mixins": [
+		"meteorology.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

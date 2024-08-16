@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "meteorology:block/ruby_block"
+    }
+  }
+}

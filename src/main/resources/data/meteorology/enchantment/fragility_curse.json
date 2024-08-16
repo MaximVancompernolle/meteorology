@@ -1,0 +1,60 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.meteorology.fragility_curse"
+  },
+  "effects": {
+    "minecraft:hit_block": [
+      {
+        "effect": {
+          "type": "minecraft:damage_item",
+          "amount": 100
+        },
+        "requirements": {
+          "chance": 0.01,
+          "condition": "minecraft:random_chance"
+        }
+      }
+    ],
+    "minecraft:post_attack": [
+      {
+        "enchanted": "attacker",
+        "affected": "attacker",
+        "effect": {
+          "type": "minecraft:damage_item",
+          "amount": 100
+        },
+        "requirements": {
+          "chance": 0.01,
+          "condition": "minecraft:random_chance"
+        }
+      },
+      {
+        "enchanted": "victim",
+        "affected": "victim",
+        "effect": {
+          "type": "minecraft:damage_item",
+          "amount": 100
+        },
+        "requirements": {
+          "chance": 0.01,
+          "condition": "minecraft:random_chance"
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 50,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "any"
+  ],
+  "supported_items": "#minecraft:enchantable/durability",
+  "weight": 1
+}
