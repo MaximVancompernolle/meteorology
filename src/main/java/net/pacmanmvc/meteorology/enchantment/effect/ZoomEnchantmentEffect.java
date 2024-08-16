@@ -19,23 +19,26 @@ public record ZoomEnchantmentEffect(EnchantmentLevelBasedValue amount) implement
 
     @Override
     public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity user, Vec3d pos) {
+        float maxVelocity = 1.5f;
         LivingEntity livingEntity = context.owner();
         if (!world.isClient) {
             if (livingEntity != null && livingEntity.isFallFlying()) {
-                Vec3d vecVelocity = livingEntity.getVelocity();
-                float amt = amount.getValue(level) + 0.2f;
-                livingEntity
-                        .setVelocity(clamp(vecVelocity.multiply(amt, 1, amt), -1, -1, -1, 1, 1, 1));
-                livingEntity.velocityModified = true;
+                float pitchRadians = livingEntity.getPitch() * (float) (Math.PI / 180.0);
+                Vec3d velocityVector = livingEntity.getVelocity();
+                if (pitchRadians > 0.0F) {
+                    Vec3d velocity = velocityVector.multiply(1.05, 1, 1.05);
+                    Vec3d clampedVelocity = clampXZ(velocity, -maxVelocity, -maxVelocity, maxVelocity, maxVelocity);
+                    livingEntity.setVelocity(clampedVelocity);
+                    livingEntity.velocityModified = true;
+                }
             }
         }
     }
 
-    private static Vec3d clamp(Vec3d vec, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+    private static Vec3d clampXZ(Vec3d vec, double minX, double minZ, double maxX, double maxZ) {
         double x = Math.max(Math.min(vec.x, maxX), minX);
-        double y = Math.max(Math.min(vec.y, maxY), minY);
         double z = Math.max(Math.min(vec.z, maxZ), minZ);
-        return new Vec3d(x, y, z);
+        return new Vec3d(x, vec.y, z);
     }
 
     @Override
