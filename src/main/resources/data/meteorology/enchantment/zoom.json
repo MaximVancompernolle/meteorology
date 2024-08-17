@@ -15,15 +15,27 @@
           }
         }
       }
+    ],
+    "minecraft:attributes": [
+      {
+        "id": "zoom_armor",
+        "attribute": "minecraft:generic.armor",
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 2,
+          "per_level_above_first": 2
+        },
+        "operation": "add_value"
+      }
     ]
   },
   "max_cost": {
-    "base": 25,
-    "per_level_above_first": 25
+    "base": 31,
+    "per_level_above_first": 10
   },
   "max_level": 3,
   "min_cost": {
-    "base": 10,
+    "base": 1,
     "per_level_above_first": 10
   },
   "slots": [

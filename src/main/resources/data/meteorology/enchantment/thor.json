@@ -19,12 +19,28 @@
           "type": "minecraft:damage_item",
           "amount": 1
         },
-        "requirements": {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "periodic_tick": 20
+        "requirements": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "periodic_tick": 20
+            }
+          },
+          {
+            "condition": "minecraft:weather_check",
+            "thundering": true
           }
+        ]
+      },
+      {
+        "effect": {
+          "type": "minecraft:run_function",
+          "function": "meteorology:thor_particle"
+        },
+        "requirements": {
+          "condition": "minecraft:weather_check",
+          "thundering": true
         }
       }
     ]

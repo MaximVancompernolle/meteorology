@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "meteorology",
-	"version": "1.1.1",
+	"version": "0.1.1",
 	"name": "Meteorology",
 	"description": "Explore the new Meteorology profession and everything it has to offer!",
 	"authors": [

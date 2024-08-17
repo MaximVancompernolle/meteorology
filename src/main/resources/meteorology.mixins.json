@@ -6,6 +6,7 @@
     "EggEntityMixin",
     "ExampleMixin",
     "HoeItemMixin",
+    "ItemMixin",
     "ItemsMixin",
     "PlayerEntityMixin"
   ],

@@ -2,17 +2,8 @@ package net.pacmanmvc.meteorology;
 
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.item.*;
 import net.pacmanmvc.meteorology.block.ModBlocks;
-//import net.pacmanmvc.meteorology.enchantment.ModEnchantments;
 import net.pacmanmvc.meteorology.enchantment.ModEnchantments;
 import net.pacmanmvc.meteorology.item.ModItemGroups;
 import net.pacmanmvc.meteorology.item.ModItems;
@@ -37,21 +28,5 @@ public class Meteorology implements ModInitializer {
 		ModBlocks.registerModBlocks();
 		ModItemGroups.registerItemGroups();
 		ModEnchantments.registerModEnchantments();
-
-		ServerTickEvents.START_SERVER_TICK.register(this::onPlayerTick);
-	}
-
-	private void onPlayerTick(MinecraftServer minecraftServer) {
-		String[] names = minecraftServer.getPlayerNames();
-		if (names.length == 0) {
-			return;
-		}
-		PlayerEntity playerEntity = minecraftServer.getPlayerManager().getPlayer(names[0]);
-		if (playerEntity != null) {
-			Meteorology.LOGGER.info("x" + playerEntity.getVelocity().x);
-			Meteorology.LOGGER.info("y" + playerEntity.getVelocity().y);
-			Meteorology.LOGGER.info("z" + playerEntity.getVelocity().z);
-			Meteorology.LOGGER.info("");
-		}
 	}
 }
