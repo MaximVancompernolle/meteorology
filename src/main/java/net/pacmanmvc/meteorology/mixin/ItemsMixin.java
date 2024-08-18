@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 
 
 @Mixin(Items.class)
-public class ItemsMixin {
+public abstract class ItemsMixin {
     @ModifyArg(method = "<clinit>",
             slice = @Slice(from = @At(value = "CONSTANT", args = "stringValue=glistering_melon_slice")),
             at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;<init>(Lnet/minecraft/item/Item$Settings;)V", ordinal = 0))

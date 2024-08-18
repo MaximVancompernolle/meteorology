@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EggEntity.class)
-public class EggEntityMixin extends ThrownItemEntity {
+public abstract class EggEntityMixin extends ThrownItemEntity {
     public EggEntityMixin(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
     }

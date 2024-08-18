@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Item.class)
-public class ItemMixin {
+public abstract class ItemMixin {
     @Inject(method = "getEnchantability", at = @At("HEAD"), cancellable = true)
     private void getEnchantability(CallbackInfoReturnable<Integer> cir) {
         if ((Object) this instanceof ElytraItem) {
