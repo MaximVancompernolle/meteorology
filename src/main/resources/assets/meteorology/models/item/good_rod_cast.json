@@ -1,0 +1,6 @@
+{
+    "parent": "item/good_rod",
+    "textures": {
+        "layer0": "item/good_rod_cast"
+    }
+}

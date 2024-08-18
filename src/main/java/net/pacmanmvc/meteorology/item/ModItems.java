@@ -29,6 +29,9 @@ public class ModItems {
             .maxDamage(ArmorItem.Type.LEGGINGS.getMaxDamage(10))));
     public static final Item RUBY_BOOTS = registerItem("ruby_boots", new ArmorItem(ModArmorMaterial.RUBY, ArmorItem.Type.BOOTS, new Item.Settings()
             .maxDamage(ArmorItem.Type.BOOTS.getMaxDamage(10))));
+
+    public static final Item GOOD_ROD = registerItem("good_rod", new FishingRodItem(new Item.Settings()));
+    public static final Item SUPER_ROD = registerItem("super_rod", new FishingRodItem(new Item.Settings()));
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(Meteorology.MOD_ID, name), item);
     }

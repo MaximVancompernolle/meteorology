@@ -1,0 +1,6 @@
+{
+    "parent": "item/super_rod",
+    "textures": {
+        "layer0": "item/super_rod_cast"
+    }
+}

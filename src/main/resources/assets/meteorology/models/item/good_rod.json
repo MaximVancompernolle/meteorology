@@ -1,0 +1,14 @@
+{
+    "parent": "item/handheld_rod",
+    "textures": {
+        "layer0": "item/good_rod"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "cast": 1
+            },
+            "model": "item/good_rod_cast"
+        }
+    ]
+}
