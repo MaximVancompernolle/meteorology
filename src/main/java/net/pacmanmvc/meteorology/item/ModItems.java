@@ -32,6 +32,7 @@ public class ModItems {
 
     public static final Item GOOD_ROD = registerItem("good_rod", new FishingRodItem(new Item.Settings()));
     public static final Item SUPER_ROD = registerItem("super_rod", new FishingRodItem(new Item.Settings()));
+
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(Meteorology.MOD_ID, name), item);
     }

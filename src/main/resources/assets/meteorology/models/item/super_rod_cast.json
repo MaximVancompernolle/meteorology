@@ -1,6 +1,6 @@
 {
-    "parent": "item/super_rod",
+    "parent": "meteorology:item/super_rod",
     "textures": {
-        "layer0": "item/super_rod_cast"
+        "layer0": "meteorology:item/super_rod_cast"
     }
 }

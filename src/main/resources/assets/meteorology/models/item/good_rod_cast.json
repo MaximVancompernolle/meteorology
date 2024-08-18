@@ -1,6 +1,6 @@
 {
-    "parent": "item/good_rod",
+    "parent": "meteorology:item/good_rod",
     "textures": {
-        "layer0": "item/good_rod_cast"
+        "layer0": "meteorology:item/good_rod_cast"
     }
 }

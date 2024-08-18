@@ -1,14 +1,14 @@
 {
-    "parent": "item/handheld_rod",
+    "parent": "minecraft:item/handheld_rod",
     "textures": {
-        "layer0": "item/good_rod"
+        "layer0": "meteorology:item/good_rod"
     },
     "overrides": [
         {
             "predicate": {
                 "cast": 1
             },
-            "model": "item/good_rod_cast"
+            "model": "meteorology:item/good_rod_cast"
         }
     ]
 }
