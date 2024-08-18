@@ -2,6 +2,7 @@ package net.pacmanmvc.meteorology.item;
 
 import com.google.common.base.Suppliers;
 import net.minecraft.block.Block;
+import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.BlockTags;
@@ -10,7 +11,8 @@ import net.minecraft.registry.tag.TagKey;
 import java.util.function.Supplier;
 
 public enum ModToolMaterial implements ToolMaterial {
-    RUBY(BlockTags.INCORRECT_FOR_IRON_TOOL, 864, 7.0F, 5.0F, 12, () -> Ingredient.ofItems(ModItems.RUBY));
+    RUBY(BlockTags.INCORRECT_FOR_IRON_TOOL, 864, 7.0F, 5.0F, 12, () -> Ingredient.ofItems(ModItems.RUBY)),
+    BONE(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 96, 2.0F, 0.0F, 1, () -> Ingredient.ofItems(Items.BONE));
 
     private final TagKey<Block> inverseTag;
     private final int itemDurability;

@@ -2,11 +2,9 @@ package net.pacmanmvc.meteorology.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 import net.pacmanmvc.meteorology.item.ModItems;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -30,5 +28,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.RUBY_SHOVEL);
         getOrCreateTagBuilder(ItemTags.SWORDS)
                 .add(ModItems.RUBY_SWORD);
+
+        getOrCreateTagBuilder(ItemTags.HOES)
+                .add(ModItems.BONE_HOE);
     }
 }
