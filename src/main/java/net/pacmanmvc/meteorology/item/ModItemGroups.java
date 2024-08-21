@@ -33,6 +33,18 @@ public class ModItemGroups {
                         entries.add(ModItems.RUBY_BOOTS);
                     })
                     .build());
+
+    public static final ItemGroup FISHING_GROUP = Registry.register(Registries.ITEM_GROUP, Identifier.of(Meteorology.MOD_ID, "fishing"),
+            FabricItemGroup.builder()
+                    .displayName(Text.translatable("itemgroup.fishing"))
+                    .icon(() -> new ItemStack(ModItems.SUPER_ROD))
+                    .entries((displayContext, entries) -> {
+                        entries.add(ModItems.GOOD_ROD);
+                        entries.add(ModItems.SUPER_ROD);
+                        entries.add(ModItems.FLIPPERS);
+                    })
+                    .build());
+
     public static void registerItemGroups() {
         Meteorology.LOGGER.info("Registering Item Groups for " + Meteorology.MOD_ID);
     }
