@@ -16,6 +16,7 @@
   "item.meteorology.ruby_chestplate": "Ruby Chestplate",
   "item.meteorology.ruby_leggings": "Ruby Leggings",
   "item.meteorology.ruby_boots": "Ruby Boots",
+  "item.meteorology.flippers": "Flippers",
 
   "block.meteorology.ruby_block": "Block of Ruby",
   "block.meteorology.raw_ruby_block": "Block of Raw Ruby",
@@ -23,6 +24,7 @@
   "block.meteorology.deepslate_ruby_ore": "Deepslate Ruby Ore",
 
   "itemgroup.ruby": "Ruby Item Group",
+  "itemgroup.fishing": "Fishing Item Group",
 
   "enchantment.meteorology.fragility_curse": "Curse of Fragility",
   "enchantment.meteorology.summoner": "Summoner",

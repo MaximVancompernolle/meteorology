@@ -4,6 +4,7 @@ import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.pacmanmvc.meteorology.Meteorology;
 
 public class ModItems {
@@ -30,8 +31,11 @@ public class ModItems {
     public static final Item RUBY_BOOTS = registerItem("ruby_boots", new ArmorItem(ModArmorMaterial.RUBY, ArmorItem.Type.BOOTS, new Item.Settings()
             .maxDamage(ArmorItem.Type.BOOTS.getMaxDamage(10))));
 
-    public static final Item GOOD_ROD = registerItem("good_rod", new FishingRodItem(new Item.Settings()));
-    public static final Item SUPER_ROD = registerItem("super_rod", new FishingRodItem(new Item.Settings()));
+    public static final Item GOOD_ROD = registerItem("good_rod", new GoodRodItem(new Item.Settings()));
+    public static final Item SUPER_ROD = registerItem("super_rod", new SuperRodItem(new Item.Settings()));
+    public static final Item FLIPPERS = registerItem("flippers", new ArmorItem(ArmorMaterials.TURTLE, ArmorItem.Type.BOOTS, new Item.Settings()
+            .maxDamage(ArmorItem.Type.BOOTS.getMaxDamage(25))
+            .rarity(Rarity.RARE)));
     public static final Item BONE_HOE = registerItem("bone_hoe", new BoneHoeItem(new Item.Settings()));
 
     private static Item registerItem(String name, Item item) {
