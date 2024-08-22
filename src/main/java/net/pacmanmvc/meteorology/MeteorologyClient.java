@@ -1,13 +1,16 @@
 package net.pacmanmvc.meteorology;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.render.entity.FishingBobberEntityRenderer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.pacmanmvc.meteorology.entity.ModEntities;
 import net.pacmanmvc.meteorology.item.ModItems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +38,8 @@ public class MeteorologyClient implements ClientModInitializer {
         LOGGER.info("Initializing Meteorology Client");
         ModelPredicateProviderRegistry.register(ModItems.GOOD_ROD, Identifier.ofVanilla("cast"), MeteorologyClient::getRodTexture);
         ModelPredicateProviderRegistry.register(ModItems.SUPER_ROD, Identifier.ofVanilla("cast"), MeteorologyClient::getRodTexture);
+        EntityRendererRegistry.register(ModEntities.GOOD_BOBBER, FishingBobberEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.SUPER_BOBBER, FishingBobberEntityRenderer::new);
 
     }
 }

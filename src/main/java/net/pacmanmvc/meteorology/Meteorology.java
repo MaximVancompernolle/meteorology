@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 
 import net.pacmanmvc.meteorology.block.ModBlocks;
 import net.pacmanmvc.meteorology.enchantment.ModEnchantments;
+import net.pacmanmvc.meteorology.entity.ModEntities;
 import net.pacmanmvc.meteorology.item.ModItemGroups;
 import net.pacmanmvc.meteorology.item.ModItems;
 import net.pacmanmvc.meteorology.util.ModTags;
@@ -26,6 +27,7 @@ public class Meteorology implements ModInitializer {
 		LOGGER.info("Hello Fabric world!");
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
+		ModEntities.registerModEntities();
 		ModItemGroups.registerItemGroups();
 		ModTags.registerModTags();
 		ModEnchantments.registerModEnchantments();

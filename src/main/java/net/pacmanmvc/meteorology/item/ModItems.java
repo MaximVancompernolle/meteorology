@@ -31,8 +31,8 @@ public class ModItems {
     public static final Item RUBY_BOOTS = registerItem("ruby_boots", new ArmorItem(ModArmorMaterial.RUBY, ArmorItem.Type.BOOTS, new Item.Settings()
             .maxDamage(ArmorItem.Type.BOOTS.getMaxDamage(10))));
 
-    public static final Item GOOD_ROD = registerItem("good_rod", new GoodRodItem(new Item.Settings()));
-    public static final Item SUPER_ROD = registerItem("super_rod", new SuperRodItem(new Item.Settings()));
+    public static final Item GOOD_ROD = registerItem("good_rod", new GoodRodItem(new Item.Settings().maxDamage(128)));
+    public static final Item SUPER_ROD = registerItem("super_rod", new SuperRodItem(new Item.Settings().maxDamage(256)));
     public static final Item FLIPPERS = registerItem("flippers", new ArmorItem(ArmorMaterials.TURTLE, ArmorItem.Type.BOOTS, new Item.Settings()
             .maxDamage(ArmorItem.Type.BOOTS.getMaxDamage(25))
             .rarity(Rarity.RARE)));
