@@ -1,0 +1,96 @@
+{
+  "type": "minecraft:fishing",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "decoration": "red_x",
+              "destination": "on_treasure_maps",
+              "function": "minecraft:exploration_map",
+              "skip_existing_chunks": false,
+              "zoom": 1
+            },
+            {
+              "function": "minecraft:set_name",
+              "name": {
+                "translate": "filled_map.buried_treasure"
+              },
+              "target": "item_name"
+            }
+          ],
+          "name": "minecraft:map",
+          "weight": 50
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "decoration": "monument",
+              "destination": "on_ocean_explorer_maps",
+              "function": "minecraft:exploration_map",
+              "skip_existing_chunks": false,
+              "zoom": 1
+            },
+            {
+              "function": "minecraft:set_name",
+              "name": {
+                "translate": "filled_map.monument"
+              },
+              "target": "item_name"
+            }
+          ],
+          "name": "minecraft:map",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "decoration": "trial_chambers",
+              "destination": "on_trial_chambers_maps",
+              "function": "minecraft:exploration_map",
+              "skip_existing_chunks": false,
+              "zoom": 1
+            },
+            {
+              "function": "minecraft:set_name",
+              "name": {
+                "translate": "filled_map.trial_chambers"
+              },
+              "target": "item_name"
+            }
+          ],
+          "name": "minecraft:map",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "decoration": "mansion",
+              "destination": "on_woodland_explorer_maps",
+              "function": "minecraft:exploration_map",
+              "skip_existing_chunks": false,
+              "zoom": 1
+            },
+            {
+              "function": "minecraft:set_name",
+              "name": {
+                "translate": "filled_map.mansion"
+              },
+              "target": "item_name"
+            }
+          ],
+          "name": "minecraft:map",
+          "weight": 10
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "meteorology:gameplay/fishing/map"
+}
