@@ -394,6 +394,14 @@ public class GoodBobberEntity extends FishingBobberEntity {
         return true;
     }
 
+    @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(HOOK_ENTITY_ID, 0);
+        builder.add(CAUGHT_FISH, false);
+    }
+
+
     static enum PositionType {
         ABOVE_WATER,
         INSIDE_WATER,
