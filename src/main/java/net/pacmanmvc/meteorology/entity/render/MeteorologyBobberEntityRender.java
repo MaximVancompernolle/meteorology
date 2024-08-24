@@ -114,7 +114,7 @@ public class MeteorologyBobberEntityRender extends EntityRenderer<AbstractBobber
         buffer.vertex(matrices, f, g, h).color(Colors.BLACK).normal(matrices, i, j, k);
     }
 
-    public Identifier getTexture(AbstractBobberEntity TestBobberEntity) {
+    public Identifier getTexture(AbstractBobberEntity BobberEntity) {
         return TEXTURE;
     }
 }

@@ -24,9 +24,9 @@ public class SuperRodItem extends AbstractRodItem {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         PlayerEntityAccessor playerEntityAccessor = (PlayerEntityAccessor) user;
         ItemStack itemStack = user.getStackInHand(hand);
-        if (playerEntityAccessor.meteorology$getTestBobber() != null) {
+        if (playerEntityAccessor.meteorology$getFishingHook() != null) {
             if (!world.isClient) {
-                int i = playerEntityAccessor.meteorology$getTestBobber().use(itemStack);
+                int i = playerEntityAccessor.meteorology$getFishingHook().use(itemStack);
                 itemStack.damage(i, user, LivingEntity.getSlotForHand(hand));
             }
 

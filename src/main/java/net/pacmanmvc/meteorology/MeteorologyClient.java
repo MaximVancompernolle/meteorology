@@ -30,7 +30,7 @@ public class MeteorologyClient implements ClientModInitializer {
                 bl2 = false;
             }
 
-            return (bl || bl2) && livingEntity instanceof PlayerEntity && ((PlayerEntityAccessor) livingEntity).meteorology$getTestBobber() != null ? 1.0F : 0.0F;
+            return (bl || bl2) && livingEntity instanceof PlayerEntity && ((PlayerEntityAccessor) livingEntity).meteorology$getFishingHook() != null ? 1.0F : 0.0F;
         }
     }
 

@@ -4,8 +4,8 @@ import net.pacmanmvc.meteorology.entity.projectile.AbstractBobberEntity;
 
 public interface PlayerEntityAccessor {
 
-    void meteorology$setTestBobber(AbstractBobberEntity bobber);
+    void meteorology$setFishingHook(AbstractBobberEntity bobber);
 
-    AbstractBobberEntity meteorology$getTestBobber();
+    AbstractBobberEntity meteorology$getFishingHook();
 
 }

@@ -31,16 +31,16 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
     @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
 
     @Unique
-    public AbstractBobberEntity meteorology$testBobber;
+    public AbstractBobberEntity meteorology$fishingHook;
 
     @Override
-    public void meteorology$setTestBobber(AbstractBobberEntity bobber) {
-        this.meteorology$testBobber = bobber;
+    public void meteorology$setFishingHook(AbstractBobberEntity bobber) {
+        this.meteorology$fishingHook = bobber;
     }
 
     @Override
-    public AbstractBobberEntity meteorology$getTestBobber() {
-        return this.meteorology$testBobber;
+    public AbstractBobberEntity meteorology$getFishingHook() {
+        return this.meteorology$fishingHook;
     }
 
     @Inject(method = "getNextLevelExperience", at = @At("HEAD"), cancellable = true)
