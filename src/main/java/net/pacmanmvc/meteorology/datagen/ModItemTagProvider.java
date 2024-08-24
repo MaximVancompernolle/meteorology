@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 import net.pacmanmvc.meteorology.item.ModItems;
+import net.pacmanmvc.meteorology.util.ModTags;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -43,5 +44,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         getOrCreateTagBuilder(ItemTags.HOES)
                 .add(ModItems.BONE_HOE);
+
+        getOrCreateTagBuilder(ModTags.Items.FISHING_RODS)
+                .add(ModItems.GOOD_ROD, ModItems.SUPER_ROD);
     }
 }
