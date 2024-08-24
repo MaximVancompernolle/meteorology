@@ -513,7 +513,7 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
     private void setPlayerFishHook(@Nullable AbstractBobberEntity fishingBobber) {
         PlayerEntity playerEntity = this.getPlayerOwner();
         if (playerEntity != null) {
-            ((PlayerEntityAccessor) playerEntity).meteorology$setTestBobber(fishingBobber);
+            ((PlayerEntityAccessor) playerEntity).meteorology$setFishingHook(fishingBobber);
         }
     }
 
