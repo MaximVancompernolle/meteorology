@@ -10,12 +10,15 @@ import net.pacmanmvc.meteorology.Meteorology;
 public class ModTags {
     public static class Blocks {
         public static TagKey<Block> RUBY_ORES = createTag("ruby_ores");
+
         private static TagKey<Block> createTag(String name) {
             return TagKey.of(RegistryKeys.BLOCK, Identifier.of(Meteorology.MOD_ID, name));
         }
     }
 
     public static class Items {
+        public static TagKey<Item> FISHING_RODS = createTag("fishing_rods");
+
         private static TagKey<Item> createTag(String name) {
             return TagKey.of(RegistryKeys.ITEM, Identifier.of(Meteorology.MOD_ID, name));
         }

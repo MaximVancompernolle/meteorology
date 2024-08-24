@@ -9,16 +9,19 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.world.World;
+import net.pacmanmvc.meteorology.api.entity.PlayerEntityAccessor;
+import net.pacmanmvc.meteorology.entity.projectile.AbstractBobberEntity;
 import net.pacmanmvc.meteorology.item.ModItems;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity {
+public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEntityAccessor {
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -26,6 +29,19 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Shadow public int experienceLevel;
 
     @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
+
+    @Unique
+    public AbstractBobberEntity meteorology$testBobber;
+
+    @Override
+    public void meteorology$setTestBobber(AbstractBobberEntity bobber) {
+        this.meteorology$testBobber = bobber;
+    }
+
+    @Override
+    public AbstractBobberEntity meteorology$getTestBobber() {
+        return this.meteorology$testBobber;
+    }
 
     @Inject(method = "getNextLevelExperience", at = @At("HEAD"), cancellable = true)
     public void getNextLevelExperience(CallbackInfoReturnable<Integer> cir) {

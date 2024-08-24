@@ -3,7 +3,6 @@ package net.pacmanmvc.meteorology.item;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -13,19 +12,21 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import net.pacmanmvc.meteorology.api.entity.PlayerEntityAccessor;
 import net.pacmanmvc.meteorology.entity.projectile.SuperBobberEntity;
 
-public class SuperRodItem extends Item {
+public class SuperRodItem extends AbstractRodItem {
     public SuperRodItem(Settings settings) {
         super(settings);
     }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        PlayerEntityAccessor playerEntityAccessor = (PlayerEntityAccessor) user;
         ItemStack itemStack = user.getStackInHand(hand);
-        if (user.fishHook != null) {
+        if (playerEntityAccessor.meteorology$getTestBobber() != null) {
             if (!world.isClient) {
-                int i = user.fishHook.use(itemStack);
+                int i = playerEntityAccessor.meteorology$getTestBobber().use(itemStack);
                 itemStack.damage(i, user, LivingEntity.getSlotForHand(hand));
             }
 
