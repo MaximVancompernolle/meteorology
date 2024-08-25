@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.pacmanmvc.meteorology.entity.ModEntities;
-import net.pacmanmvc.meteorology.util.ModTags;
+import net.pacmanmvc.meteorology.item.ModItems;
 
 public class GoodBobberEntity extends AbstractBobberEntity {
 
@@ -26,8 +26,8 @@ public class GoodBobberEntity extends AbstractBobberEntity {
     protected boolean removeIfInvalid(PlayerEntity player) {
         ItemStack itemStack = player.getMainHandStack();
         ItemStack itemStack2 = player.getOffHandStack();
-        boolean bl = itemStack.isIn(ModTags.Items.FISHING_RODS);
-        boolean bl2 = itemStack2.isIn(ModTags.Items.FISHING_RODS);
+        boolean bl = itemStack.isOf(ModItems.GOOD_ROD);
+        boolean bl2 = itemStack2.isOf(ModItems.GOOD_ROD);
         if (!player.isRemoved() && player.isAlive() && (bl || bl2) && !(this.squaredDistanceTo(player) > 2048.0)) {
             return false;
         } else {

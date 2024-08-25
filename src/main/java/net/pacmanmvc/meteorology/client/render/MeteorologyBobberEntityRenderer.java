@@ -1,4 +1,4 @@
-package net.pacmanmvc.meteorology.entity.render;
+package net.pacmanmvc.meteorology.client.render;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -24,15 +24,13 @@ import org.slf4j.Logger;
 
 
 @Environment(EnvType.CLIENT)
-public class MeteorologyBobberEntityRender extends EntityRenderer<AbstractBobberEntity> {
+public abstract class MeteorologyBobberEntityRenderer extends EntityRenderer<AbstractBobberEntity> {
     private static final Logger LOGGER = Meteorology.LOGGER;
-    private static final Identifier TEXTURE = Identifier.ofVanilla("textures/entity/fishing_hook.png");
+    protected static Identifier TEXTURE = Identifier.ofVanilla("textures/entity/fishing_hook.png");
     private static final Identifier EXCLAMATION_MARK_TEXTURE = Identifier.ofVanilla("textures/gui/sprites/world_list/error_highlighted.png");
-    private static final RenderLayer LAYER = RenderLayer.getEntityCutout(TEXTURE);
     private static final RenderLayer EXCLAMATION_MARK_LAYER = RenderLayer.getEntityCutout(EXCLAMATION_MARK_TEXTURE);
-    private static final double field_33632 = 960.0;
 
-    public MeteorologyBobberEntityRender(EntityRendererFactory.Context context) {
+    public MeteorologyBobberEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
     }
 
@@ -44,10 +42,9 @@ public class MeteorologyBobberEntityRender extends EntityRenderer<AbstractBobber
             matrixStack.scale(0.5F, 0.5F, 0.5F);
             matrixStack.multiply(this.dispatcher.getRotation());
             MatrixStack.Entry entry = matrixStack.peek();
-            renderLayer(matrixStack, vertexConsumerProvider, i, entry, LAYER);
+            renderLayer(matrixStack, vertexConsumerProvider, i, entry, RenderLayer.getEntityCutout(getTexture(bobberEntity)));
 
-            // Render Exclamation Mark
-            if(bobberEntity.getShowExclamationMark()) {
+            if (bobberEntity.getShowExclamationMark()) {
                 matrixStack.push();
                 MatrixStack.Entry entry3 = matrixStack.peek();
                 matrixStack.scale(1.75f, 1.75f, 1.75f);
@@ -60,12 +57,11 @@ public class MeteorologyBobberEntityRender extends EntityRenderer<AbstractBobber
             float j = MathHelper.sin(MathHelper.sqrt(h) * (float) Math.PI);
             Vec3d vec3d = this.getHandPos(playerEntity, j, g);
             Vec3d vec3d2 = bobberEntity.getLerpedPos(g).add(0.0, 0.25, 0.0);
-            float k = (float)(vec3d.x - vec3d2.x);
-            float l = (float)(vec3d.y - vec3d2.y);
-            float m = (float)(vec3d.z - vec3d2.z);
+            float k = (float) (vec3d.x - vec3d2.x);
+            float l = (float) (vec3d.y - vec3d2.y);
+            float m = (float) (vec3d.z - vec3d2.z);
             VertexConsumer vertexConsumer2 = vertexConsumerProvider.getBuffer(RenderLayer.getLineStrip());
             MatrixStack.Entry entry2 = matrixStack.peek();
-            int n = 16;
 
             for (int o = 0; o <= 16; o++) {
                 renderFishingLine(k, l, m, vertexConsumer2, entry2, percentage(o, 16), percentage(o + 1, 16));
@@ -93,29 +89,29 @@ public class MeteorologyBobberEntityRender extends EntityRenderer<AbstractBobber
         }
 
         if (this.dispatcher.gameOptions.getPerspective().isFirstPerson() && player == MinecraftClient.getInstance().player) {
-            double m = 960.0 / (double)this.dispatcher.gameOptions.getFov().getValue().intValue();
-            Vec3d vec3d = this.dispatcher.camera.getProjection().getPosition((float)i * 0.525F, -0.1F).multiply(m).rotateY(f * 0.5F).rotateX(-f * 0.7F);
+            double m = 960.0 / (double) this.dispatcher.gameOptions.getFov().getValue();
+            Vec3d vec3d = this.dispatcher.camera.getProjection().getPosition((float) i * 0.525F, -0.1F).multiply(m).rotateY(f * 0.5F).rotateX(-f * 0.7F);
             return player.getCameraPosVec(tickDelta).add(vec3d);
         } else {
             float g = MathHelper.lerp(tickDelta, player.prevBodyYaw, player.bodyYaw) * (float) (Math.PI / 180.0);
-            double d = (double)MathHelper.sin(g);
-            double e = (double)MathHelper.cos(g);
+            double d = MathHelper.sin(g);
+            double e = MathHelper.cos(g);
             float h = player.getScale();
-            double j = (double)i * 0.35 * (double)h;
-            double k = 0.8 * (double)h;
+            double j = (double) i * 0.35 * (double) h;
+            double k = 0.8 * (double) h;
             float l = player.isInSneakingPose() ? -0.1875F : 0.0F;
-            return player.getCameraPosVec(tickDelta).add(-e * j - d * k, (double)l - 0.45 * (double)h, -d * j + e * k);
+            return player.getCameraPosVec(tickDelta).add(-e * j - d * k, (double) l - 0.45 * (double) h, -d * j + e * k);
         }
     }
 
     private static float percentage(int value, int max) {
-        return (float)value / (float)max;
+        return (float) value / (float) max;
     }
 
     private static void vertex(VertexConsumer buffer, MatrixStack.Entry matrix, int light, float x, int y, int u, int v) {
-        buffer.vertex(matrix, x - 0.5F, (float)y - 0.5F, 0.0F)
+        buffer.vertex(matrix, x - 0.5F, (float) y - 0.5F, 0.0F)
                 .color(Colors.WHITE)
-                .texture((float)u, (float)v)
+                .texture((float) u, (float) v)
                 .overlay(OverlayTexture.DEFAULT_UV)
                 .light(light)
                 .normal(matrix, 0.0F, 1.0F, 0.0F);
@@ -135,7 +131,8 @@ public class MeteorologyBobberEntityRender extends EntityRenderer<AbstractBobber
         buffer.vertex(matrices, f, g, h).color(Colors.BLACK).normal(matrices, i, j, k);
     }
 
-    public Identifier getTexture(AbstractBobberEntity BobberEntity) {
+    @Override
+    public Identifier getTexture(AbstractBobberEntity entity) {
         return TEXTURE;
     }
 }
