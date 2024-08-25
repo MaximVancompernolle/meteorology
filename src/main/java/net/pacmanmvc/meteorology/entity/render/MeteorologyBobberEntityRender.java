@@ -17,13 +17,19 @@ import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.pacmanmvc.meteorology.Meteorology;
 import net.pacmanmvc.meteorology.entity.projectile.AbstractBobberEntity;
 import net.pacmanmvc.meteorology.util.ModTags;
+import org.slf4j.Logger;
+
 
 @Environment(EnvType.CLIENT)
 public class MeteorologyBobberEntityRender extends EntityRenderer<AbstractBobberEntity> {
+    private static final Logger LOGGER = Meteorology.LOGGER;
     private static final Identifier TEXTURE = Identifier.ofVanilla("textures/entity/fishing_hook.png");
+    private static final Identifier EXCLAMATION_MARK_TEXTURE = Identifier.ofVanilla("textures/gui/sprites/world_list/error_highlighted.png");
     private static final RenderLayer LAYER = RenderLayer.getEntityCutout(TEXTURE);
+    private static final RenderLayer EXCLAMATION_MARK_LAYER = RenderLayer.getEntityCutout(EXCLAMATION_MARK_TEXTURE);
     private static final double field_33632 = 960.0;
 
     public MeteorologyBobberEntityRender(EntityRendererFactory.Context context) {
@@ -38,12 +44,18 @@ public class MeteorologyBobberEntityRender extends EntityRenderer<AbstractBobber
             matrixStack.scale(0.5F, 0.5F, 0.5F);
             matrixStack.multiply(this.dispatcher.getRotation());
             MatrixStack.Entry entry = matrixStack.peek();
-            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(LAYER);
-            vertex(vertexConsumer, entry, i, 0.0F, 0, 0, 1);
-            vertex(vertexConsumer, entry, i, 1.0F, 0, 1, 1);
-            vertex(vertexConsumer, entry, i, 1.0F, 1, 1, 0);
-            vertex(vertexConsumer, entry, i, 0.0F, 1, 0, 0);
-            matrixStack.pop();
+            renderLayer(matrixStack, vertexConsumerProvider, i, entry, LAYER);
+
+            // Render Exclamation Mark
+            if(bobberEntity.getShowExclamationMark()) {
+                matrixStack.push();
+                MatrixStack.Entry entry3 = matrixStack.peek();
+                matrixStack.scale(1.75f, 1.75f, 1.75f);
+                matrixStack.multiply(this.dispatcher.getRotation());
+                matrixStack.translate(0.23, 0.75, 0);
+                renderLayer(matrixStack, vertexConsumerProvider, i, entry3, EXCLAMATION_MARK_LAYER);
+            }
+
             float h = playerEntity.getHandSwingProgress(g);
             float j = MathHelper.sin(MathHelper.sqrt(h) * (float) Math.PI);
             Vec3d vec3d = this.getHandPos(playerEntity, j, g);
@@ -62,6 +74,15 @@ public class MeteorologyBobberEntityRender extends EntityRenderer<AbstractBobber
             matrixStack.pop();
             super.render(bobberEntity, f, g, matrixStack, vertexConsumerProvider, i);
         }
+    }
+
+    private void renderLayer(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, MatrixStack.Entry entry3, RenderLayer testLayer) {
+        VertexConsumer testVertexConsumer = vertexConsumerProvider.getBuffer(testLayer);
+        vertex(testVertexConsumer, entry3, i, 0.0F, 0, 0, 1);
+        vertex(testVertexConsumer, entry3, i, 1.0F, 0, 1, 1);
+        vertex(testVertexConsumer, entry3, i, 1.0F, 1, 1, 0);
+        vertex(testVertexConsumer, entry3, i, 0.0F, 1, 0, 0);
+        matrixStack.pop();
     }
 
     private Vec3d getHandPos(PlayerEntity player, float f, float tickDelta) {
