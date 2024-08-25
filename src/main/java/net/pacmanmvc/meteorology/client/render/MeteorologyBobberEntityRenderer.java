@@ -27,8 +27,12 @@ import org.slf4j.Logger;
 public abstract class MeteorologyBobberEntityRenderer extends EntityRenderer<AbstractBobberEntity> {
     private static final Logger LOGGER = Meteorology.LOGGER;
     protected static Identifier TEXTURE = Identifier.ofVanilla("textures/entity/fishing_hook.png");
-    private static final Identifier EXCLAMATION_MARK_TEXTURE = Identifier.ofVanilla("textures/gui/sprites/world_list/error_highlighted.png");
-    private static final RenderLayer EXCLAMATION_MARK_LAYER = RenderLayer.getEntityCutout(EXCLAMATION_MARK_TEXTURE);
+    private static final Identifier EXCLAMATION_MARK_TEXTURE_RED = Identifier.ofVanilla("textures/gui/sprites/world_list/error_highlighted.png");
+    private static final Identifier EXCLAMATION_MARK_TEXTURE_ORANGE = Identifier.ofVanilla("textures/gui/sprites/world_list/warning_highlighted.png");
+    private static final Identifier EXCLAMATION_MARK_TEXTURE_GREEN = Identifier.ofVanilla("textures/gui/sprites/world_list/green_highlighted.png");
+    private static final RenderLayer EXCLAMATION_MARK_LAYER_RED = RenderLayer.getEntityCutout(EXCLAMATION_MARK_TEXTURE_RED);
+    private static final RenderLayer EXCLAMATION_MARK_LAYER_ORANGE = RenderLayer.getEntityCutout(EXCLAMATION_MARK_TEXTURE_ORANGE);
+    private static final RenderLayer EXCLAMATION_MARK_LAYER_GREEN = RenderLayer.getEntityCutout(EXCLAMATION_MARK_TEXTURE_GREEN);
 
     public MeteorologyBobberEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
@@ -50,7 +54,16 @@ public abstract class MeteorologyBobberEntityRenderer extends EntityRenderer<Abs
                 matrixStack.scale(1.75f, 1.75f, 1.75f);
                 matrixStack.multiply(this.dispatcher.getRotation());
                 matrixStack.translate(0.23, 0.75, 0);
-                renderLayer(matrixStack, vertexConsumerProvider, i, entry3, EXCLAMATION_MARK_LAYER);
+
+                double exclamationTicks = bobberEntity.getHookCountdownPercentage();
+
+                if (exclamationTicks > 0.8) {
+                    renderLayer(matrixStack, vertexConsumerProvider, i, entry3, EXCLAMATION_MARK_LAYER_GREEN);
+                } else if (exclamationTicks > 0.5) {
+                    renderLayer(matrixStack, vertexConsumerProvider, i, entry3, EXCLAMATION_MARK_LAYER_ORANGE);
+                } else {
+                    renderLayer(matrixStack, vertexConsumerProvider, i, entry3, EXCLAMATION_MARK_LAYER_RED);
+                }
             }
 
             float h = playerEntity.getHandSwingProgress(g);

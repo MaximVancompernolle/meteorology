@@ -52,6 +52,7 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
     private static final TrackedData<Boolean> CAUGHT_FISH = DataTracker.registerData(AbstractBobberEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private int removalTimer;
     private int hookCountdown;
+    private int maxHookCountdown;
     private int waitCountdown;
     private int fishTravelCountdown;
     private float fishAngle;
@@ -83,9 +84,9 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
         float i = MathHelper.sin(-g * (float) (Math.PI / 180.0) - (float) Math.PI);
         float j = -MathHelper.cos(-f * (float) (Math.PI / 180.0));
         float k = MathHelper.sin(-f * (float) (Math.PI / 180.0));
-        double d = thrower.getX() - (double)i * 0.3;
+        double d = thrower.getX() - (double) i * 0.3;
         double e = thrower.getEyeY();
-        double l = thrower.getZ() - (double)h * 0.3;
+        double l = thrower.getZ() - (double) h * 0.3;
         this.refreshPositionAndAngles(d, e, l, g, f);
         Vec3d vec3d = new Vec3d(-i, MathHelper.clamp(-(k / j), -5.0F, 5.0F), -h);
         double m = vec3d.length();
@@ -95,10 +96,14 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
                 0.6 / m + this.random.nextTriangular(0.5, 0.0103365)
         );
         this.setVelocity(vec3d);
-        this.setYaw((float)(MathHelper.atan2(vec3d.x, vec3d.z) * 180.0F / (float)Math.PI));
-        this.setPitch((float)(MathHelper.atan2(vec3d.y, vec3d.horizontalLength()) * 180.0F / (float)Math.PI));
+        this.setYaw((float) (MathHelper.atan2(vec3d.x, vec3d.z) * 180.0F / (float) Math.PI));
+        this.setPitch((float) (MathHelper.atan2(vec3d.y, vec3d.horizontalLength()) * 180.0F / (float) Math.PI));
         this.prevYaw = this.getYaw();
         this.prevPitch = this.getPitch();
+    }
+
+    public double getHookCountdownPercentage() {
+        return (double) this.hookCountdown / this.maxHookCountdown;
     }
 
     @Override
@@ -189,12 +194,12 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
 
                 if (this.state == AbstractBobberEntity.State.BOBBING) {
                     Vec3d vec3d = this.getVelocity();
-                    double d = this.getY() + vec3d.y - (double)blockPos.getY() - (double)f;
+                    double d = this.getY() + vec3d.y - (double) blockPos.getY() - (double) f;
                     if (Math.abs(d) < 0.01) {
                         d += Math.signum(d) * 0.1;
                     }
 
-                    this.setVelocity(vec3d.x * 0.9, vec3d.y - d * (double)this.random.nextFloat() * 0.2, vec3d.z * 0.9);
+                    this.setVelocity(vec3d.x * 0.9, vec3d.y - d * (double) this.random.nextFloat() * 0.2, vec3d.z * 0.9);
                     if (this.hookCountdown <= 0 && this.fishTravelCountdown <= 0) {
                         this.inOpenWater = true;
                     } else {
@@ -204,10 +209,23 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
                     if (bl) {
                         this.outOfOpenWaterTicks = Math.max(0, this.outOfOpenWaterTicks - 1);
                         if (this.caughtFish) {
-                            this.setVelocity(this.getVelocity().add(0.0, -0.1 * (double)this.velocityRandom.nextFloat() * (double)this.velocityRandom.nextFloat(), 0.0));
+                            this.setVelocity(this.getVelocity().add(0.0, -0.1 * (double) this.velocityRandom.nextFloat() * (double) this.velocityRandom.nextFloat(), 0.0));
                             this.setShowExclamationMark(true);
+                            if (hookCountdown <= 0) {
+                                this.hookCountdown = MathHelper.nextInt(this.random, 20, 40);
+                                this.maxHookCountdown = hookCountdown;
+                            }
                         } else {
                             this.setShowExclamationMark(false);
+                        }
+
+                        if (this.hookCountdown > 0) {
+                            this.hookCountdown--;
+                            if (this.hookCountdown <= 0) {
+                                this.waitCountdown = 0;
+                                this.fishTravelCountdown = 0;
+                                this.getDataTracker().set(CAUGHT_FISH, false);
+                            }
                         }
 
                         if (!this.getWorld().isClient) {
@@ -291,27 +309,20 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
     }
 
     private void tickFishingLogic(BlockPos pos) {
-        ServerWorld serverWorld = (ServerWorld)this.getWorld();
+        ServerWorld serverWorld = (ServerWorld) this.getWorld();
         BlockPos blockPos = pos.up();
         int i = advanceFishingTicks(blockPos);
 
-        if (this.hookCountdown > 0) {
-            this.hookCountdown--;
-            if (this.hookCountdown <= 0) {
-                this.waitCountdown = 0;
-                this.fishTravelCountdown = 0;
-                this.getDataTracker().set(CAUGHT_FISH, false);
-            }
-        } else if (this.fishTravelCountdown > 0) {
+        if (this.fishTravelCountdown > 0) {
             this.fishTravelCountdown -= i;
             if (this.fishTravelCountdown > 0) {
-                this.fishAngle = this.fishAngle + (float)this.random.nextTriangular(0.0, 9.188);
+                this.fishAngle = this.fishAngle + (float) this.random.nextTriangular(0.0, 9.188);
                 float f = this.fishAngle * (float) (Math.PI / 180.0);
                 float g = MathHelper.sin(f);
                 float h = MathHelper.cos(f);
-                double d = this.getX() + (double)(g * (float)this.fishTravelCountdown * 0.1F);
-                double e = (float)MathHelper.floor(this.getY()) + 1.0F;
-                double j = this.getZ() + (double)(h * (float)this.fishTravelCountdown * 0.1F);
+                double d = this.getX() + (double) (g * (float) this.fishTravelCountdown * 0.1F);
+                double e = (float) MathHelper.floor(this.getY()) + 1.0F;
+                double j = this.getZ() + (double) (h * (float) this.fishTravelCountdown * 0.1F);
                 BlockState blockState = serverWorld.getBlockState(BlockPos.ofFloored(d, e - 1.0, j));
                 if (blockState.isOf(Blocks.WATER)) {
                     if (this.random.nextFloat() < 0.15F) {
@@ -327,31 +338,30 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
                 this.playSound(SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, 0.25F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
                 double m = this.getY() + 0.5;
                 serverWorld.spawnParticles(
-                        ParticleTypes.BUBBLE, this.getX(), m, this.getZ(), (int)(1.0F + this.getWidth() * 20.0F), this.getWidth(), 0.0, this.getWidth(), 0.2F
+                        ParticleTypes.BUBBLE, this.getX(), m, this.getZ(), (int) (1.0F + this.getWidth() * 20.0F), this.getWidth(), 0.0, this.getWidth(), 0.2F
                 );
                 serverWorld.spawnParticles(
-                        ParticleTypes.FISHING, this.getX(), m, this.getZ(), (int)(1.0F + this.getWidth() * 20.0F), this.getWidth(), 0.0, this.getWidth(), 0.2F
+                        ParticleTypes.FISHING, this.getX(), m, this.getZ(), (int) (1.0F + this.getWidth() * 20.0F), this.getWidth(), 0.0, this.getWidth(), 0.2F
                 );
-                this.hookCountdown = MathHelper.nextInt(this.random, 20, 40);
                 this.getDataTracker().set(CAUGHT_FISH, true);
             }
         } else if (this.waitCountdown > 0) {
             this.waitCountdown -= i;
             float f = 0.15F;
             if (this.waitCountdown < 20) {
-                f += (float)(20 - this.waitCountdown) * 0.05F;
+                f += (float) (20 - this.waitCountdown) * 0.05F;
             } else if (this.waitCountdown < 40) {
-                f += (float)(40 - this.waitCountdown) * 0.02F;
+                f += (float) (40 - this.waitCountdown) * 0.02F;
             } else if (this.waitCountdown < 60) {
-                f += (float)(60 - this.waitCountdown) * 0.01F;
+                f += (float) (60 - this.waitCountdown) * 0.01F;
             }
 
             if (this.random.nextFloat() < f) {
                 float g = MathHelper.nextFloat(this.random, 0.0F, 360.0F) * (float) (Math.PI / 180.0);
                 float h = MathHelper.nextFloat(this.random, 25.0F, 60.0F);
-                double d = this.getX() + (double)(MathHelper.sin(g) * h) * 0.1;
-                double e = (float)MathHelper.floor(this.getY()) + 1.0F;
-                double j = this.getZ() + (double)(MathHelper.cos(g) * h) * 0.1;
+                double d = this.getX() + (double) (MathHelper.sin(g) * h) * 0.1;
+                double e = (float) MathHelper.floor(this.getY()) + 1.0F;
+                double j = this.getZ() + (double) (MathHelper.cos(g) * h) * 0.1;
                 BlockState blockState = serverWorld.getBlockState(BlockPos.ofFloored(d, e - 1.0, j));
                 if (blockState.isOf(Blocks.WATER)) {
                     serverWorld.spawnParticles(ParticleTypes.SPLASH, d, e, j, 2 + this.random.nextInt(2), 0.1F, 0.0, 0.1F, 0.0);
@@ -360,11 +370,10 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
 
             if (this.waitCountdown <= 0) {
                 this.fishAngle = MathHelper.nextFloat(this.random, 0.0F, 360.0F);
-                this.fishTravelCountdown = MathHelper.nextInt(this.random, 20, 80);
+                this.fishTravelCountdown = MathHelper.nextInt(this.random, 10, 40);
             }
         } else {
-            this.waitCountdown = MathHelper.nextInt(this.random, 100, 600);
-            this.waitCountdown = this.waitCountdown - this.waitTimeReductionTicks;
+            this.waitCountdown = MathHelper.nextInt(this.random, Math.max(0, 100 - this.waitTimeReductionTicks), 600 - this.waitTimeReductionTicks);
         }
     }
 
@@ -436,11 +445,11 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
                 this.getWorld().sendEntityStatus(this, EntityStatuses.PULL_HOOKED_ENTITY);
                 i = this.hookedEntity instanceof ItemEntity ? 3 : 5;
             } else if (this.hookCountdown > 0) {
-                LootContextParameterSet lootContextParameterSet = new LootContextParameterSet.Builder((ServerWorld)this.getWorld())
+                LootContextParameterSet lootContextParameterSet = new LootContextParameterSet.Builder((ServerWorld) this.getWorld())
                         .add(LootContextParameters.ORIGIN, this.getPos())
                         .add(LootContextParameters.TOOL, usedItem)
                         .add(LootContextParameters.THIS_ENTITY, this)
-                        .luck((float)this.luckBonus + playerEntity.getLuck())
+                        .luck((float) this.luckBonus + playerEntity.getLuck())
                         .build(LootContextTypes.FISHING);
                 LootTable lootTable = this.getWorld().getServer().getReloadableRegistries().getLootTable(LootTables.FISHING_GAMEPLAY);
                 List<ItemStack> list = lootTable.generateLoot(lootContextParameterSet);
@@ -481,7 +490,7 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
         if (status == EntityStatuses.PULL_HOOKED_ENTITY
                 && this.getWorld().isClient
                 && this.hookedEntity instanceof PlayerEntity
-                && ((PlayerEntity)this.hookedEntity).isMainPlayer()) {
+                && ((PlayerEntity) this.hookedEntity).isMainPlayer()) {
             this.pullHookedEntity(this.hookedEntity);
         }
 
@@ -528,7 +537,7 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
     @Nullable
     public PlayerEntity getPlayerOwner() {
         Entity entity = this.getOwner();
-        return entity instanceof PlayerEntity ? (PlayerEntity)entity : null;
+        return entity instanceof PlayerEntity ? (PlayerEntity) entity : null;
     }
 
     @Nullable
