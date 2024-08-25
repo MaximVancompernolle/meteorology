@@ -62,6 +62,7 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
     private AbstractBobberEntity.State state = AbstractBobberEntity.State.FLYING;
     private final int luckBonus;
     private final int waitTimeReductionTicks;
+    private boolean showExclamationMark = false;
 
     public AbstractBobberEntity(EntityType<? extends AbstractBobberEntity> type, World world, int luckBonus, int waitTimeReductionTicks) {
         super(type, world);
@@ -206,6 +207,9 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
                         this.outOfOpenWaterTicks = Math.max(0, this.outOfOpenWaterTicks - 1);
                         if (this.caughtFish) {
                             this.setVelocity(this.getVelocity().add(0.0, -0.1 * (double)this.velocityRandom.nextFloat() * (double)this.velocityRandom.nextFloat(), 0.0));
+                            this.setShowExclamationMark(true);
+                        } else {
+                            this.setShowExclamationMark(false);
                         }
 
                         if (!this.getWorld().isClient) {
@@ -420,6 +424,7 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
     public int use(ItemStack usedItem) {
         PlayerEntity playerEntity = this.getPlayerOwner();
         if (!this.getWorld().isClient && playerEntity != null && !this.removeIfInvalid(playerEntity)) {
+            this.setShowExclamationMark(true);
             int i = 0;
             if (this.hookedEntity != null) {
                 this.pullHookedEntity(this.hookedEntity);
@@ -547,6 +552,14 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
             LOGGER.error("Failed to recreate fishing hook on client. {} (id: {}) is not a valid owner.", this.getWorld().getEntityById(i), i);
             this.kill();
         }
+    }
+
+    public boolean getShowExclamationMark() {
+        return this.showExclamationMark;
+    }
+
+    public void setShowExclamationMark(boolean showExclamationMark) {
+        this.showExclamationMark = showExclamationMark;
     }
 
     static enum PositionType {
