@@ -3,14 +3,18 @@
   "package": "net.pacmanmvc.meteorology.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "SwimWithPlayerGoalMixin",
+    "AnvilScreenHandlerMixin",
     "EggEntityMixin",
     "ExampleMixin",
     "ItemMixin",
     "ItemsMixin",
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "SwimWithPlayerGoalMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-	}
+  },
+  "client": [
+    "AnvilScreenMixin"
+  ]
 }
