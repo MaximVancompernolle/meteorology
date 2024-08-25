@@ -44,7 +44,6 @@ public abstract class EggEntityMixin extends ThrownItemEntity {
                 zombieEntity.discard();
             }
         }
-
     }
 
     @Override

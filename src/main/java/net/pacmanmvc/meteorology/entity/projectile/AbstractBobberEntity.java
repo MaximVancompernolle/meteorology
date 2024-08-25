@@ -48,7 +48,6 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
     private final Random velocityRandom = Random.create();
     private boolean caughtFish;
     private int outOfOpenWaterTicks;
-    private static final int field_30665 = 10;
     private static final TrackedData<Integer> HOOK_ENTITY_ID = DataTracker.registerData(AbstractBobberEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> CAUGHT_FISH = DataTracker.registerData(AbstractBobberEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private int removalTimer;
@@ -88,7 +87,7 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
         double e = thrower.getEyeY();
         double l = thrower.getZ() - (double)h * 0.3;
         this.refreshPositionAndAngles(d, e, l, g, f);
-        Vec3d vec3d = new Vec3d((double)(-i), (double)MathHelper.clamp(-(k / j), -5.0F, 5.0F), (double)(-h));
+        Vec3d vec3d = new Vec3d(-i, MathHelper.clamp(-(k / j), -5.0F, 5.0F), -h);
         double m = vec3d.length();
         vec3d = vec3d.multiply(
                 0.6 / m + this.random.nextTriangular(0.5, 0.0103365),
@@ -118,7 +117,7 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
         if (CAUGHT_FISH.equals(data)) {
             this.caughtFish = this.getDataTracker().get(CAUGHT_FISH);
             if (this.caughtFish) {
-                this.setVelocity(this.getVelocity().x, (double)(-0.4F * MathHelper.nextFloat(this.velocityRandom, 0.6F, 1.0F)), this.getVelocity().z);
+                this.setVelocity(this.getVelocity().x, -0.4F * MathHelper.nextFloat(this.velocityRandom, 0.6F, 1.0F), this.getVelocity().z);
             }
         }
 
@@ -127,7 +126,6 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
 
     @Override
     public boolean shouldRender(double distance) {
-        double d = 64.0;
         return distance < 4096.0;
     }
 
@@ -231,13 +229,12 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
                 this.setVelocity(Vec3d.ZERO);
             }
 
-            double e = 0.92;
             this.setVelocity(this.getVelocity().multiply(0.92));
             this.refreshPosition();
         }
     }
 
-    private boolean removeIfInvalid(PlayerEntity player) {
+    protected boolean removeIfInvalid(PlayerEntity player) {
         ItemStack itemStack = player.getMainHandStack();
         ItemStack itemStack2 = player.getOffHandStack();
         boolean bl = itemStack.isIn(ModTags.Items.FISHING_RODS);
@@ -279,17 +276,24 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
         this.getDataTracker().set(HOOK_ENTITY_ID, entity == null ? 0 : entity.getId() + 1);
     }
 
-    private void tickFishingLogic(BlockPos pos) {
-        ServerWorld serverWorld = (ServerWorld)this.getWorld();
+    protected int advanceFishingTicks(BlockPos pos) {
         int i = 1;
-        BlockPos blockPos = pos.up();
-        if (this.random.nextFloat() < 0.25F && this.getWorld().hasRain(blockPos)) {
+
+        if (this.random.nextFloat() < 0.25F && this.getWorld().hasRain(pos)) {
             i++;
         }
 
-        if (this.random.nextFloat() < 0.5F && !this.getWorld().isSkyVisible(blockPos)) {
+        if (this.random.nextFloat() < 0.5F && !this.getWorld().isSkyVisible(pos)) {
             i--;
         }
+
+        return i;
+    }
+
+    private void tickFishingLogic(BlockPos pos) {
+        ServerWorld serverWorld = (ServerWorld)this.getWorld();
+        BlockPos blockPos = pos.up();
+        int i = advanceFishingTicks(blockPos);
 
         if (this.hookCountdown > 0) {
             this.hookCountdown--;
@@ -306,27 +310,27 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
                 float g = MathHelper.sin(f);
                 float h = MathHelper.cos(f);
                 double d = this.getX() + (double)(g * (float)this.fishTravelCountdown * 0.1F);
-                double e = (double)((float)MathHelper.floor(this.getY()) + 1.0F);
+                double e = (float)MathHelper.floor(this.getY()) + 1.0F;
                 double j = this.getZ() + (double)(h * (float)this.fishTravelCountdown * 0.1F);
                 BlockState blockState = serverWorld.getBlockState(BlockPos.ofFloored(d, e - 1.0, j));
                 if (blockState.isOf(Blocks.WATER)) {
                     if (this.random.nextFloat() < 0.15F) {
-                        serverWorld.spawnParticles(ParticleTypes.BUBBLE, d, e - 0.1F, j, 1, (double)g, 0.1, (double)h, 0.0);
+                        serverWorld.spawnParticles(ParticleTypes.BUBBLE, d, e - 0.1F, j, 1, g, 0.1, h, 0.0);
                     }
 
                     float k = g * 0.04F;
                     float l = h * 0.04F;
-                    serverWorld.spawnParticles(ParticleTypes.FISHING, d, e, j, 0, (double)l, 0.01, (double)(-k), 1.0);
-                    serverWorld.spawnParticles(ParticleTypes.FISHING, d, e, j, 0, (double)(-l), 0.01, (double)k, 1.0);
+                    serverWorld.spawnParticles(ParticleTypes.FISHING, d, e, j, 0, l, 0.01, -k, 1.0);
+                    serverWorld.spawnParticles(ParticleTypes.FISHING, d, e, j, 0, -l, 0.01, k, 1.0);
                 }
             } else {
                 this.playSound(SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, 0.25F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
                 double m = this.getY() + 0.5;
                 serverWorld.spawnParticles(
-                        ParticleTypes.BUBBLE, this.getX(), m, this.getZ(), (int)(1.0F + this.getWidth() * 20.0F), (double)this.getWidth(), 0.0, (double)this.getWidth(), 0.2F
+                        ParticleTypes.BUBBLE, this.getX(), m, this.getZ(), (int)(1.0F + this.getWidth() * 20.0F), this.getWidth(), 0.0, this.getWidth(), 0.2F
                 );
                 serverWorld.spawnParticles(
-                        ParticleTypes.FISHING, this.getX(), m, this.getZ(), (int)(1.0F + this.getWidth() * 20.0F), (double)this.getWidth(), 0.0, (double)this.getWidth(), 0.2F
+                        ParticleTypes.FISHING, this.getX(), m, this.getZ(), (int)(1.0F + this.getWidth() * 20.0F), this.getWidth(), 0.0, this.getWidth(), 0.2F
                 );
                 this.hookCountdown = MathHelper.nextInt(this.random, 20, 40);
                 this.getDataTracker().set(CAUGHT_FISH, true);
@@ -346,7 +350,7 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
                 float g = MathHelper.nextFloat(this.random, 0.0F, 360.0F) * (float) (Math.PI / 180.0);
                 float h = MathHelper.nextFloat(this.random, 25.0F, 60.0F);
                 double d = this.getX() + (double)(MathHelper.sin(g) * h) * 0.1;
-                double e = (double)((float)MathHelper.floor(this.getY()) + 1.0F);
+                double e = (float)MathHelper.floor(this.getY()) + 1.0F;
                 double j = this.getZ() + (double)(MathHelper.cos(g) * h) * 0.1;
                 BlockState blockState = serverWorld.getBlockState(BlockPos.ofFloored(d, e - 1.0, j));
                 if (blockState.isOf(Blocks.WATER)) {
@@ -391,10 +395,10 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
     }
 
     private AbstractBobberEntity.PositionType getPositionType(BlockPos start, BlockPos end) {
-        return (AbstractBobberEntity.PositionType)BlockPos.stream(start, end)
+        return BlockPos.stream(start, end)
                 .map(this::getPositionType)
-                .reduce((positionType, positionType2) -> positionType == positionType2 ? positionType : AbstractBobberEntity.PositionType.INVALID)
-                .orElse(AbstractBobberEntity.PositionType.INVALID);
+                .reduce((positionType, positionType2) -> positionType == positionType2 ? positionType : PositionType.INVALID)
+                .orElse(PositionType.INVALID);
     }
 
     private AbstractBobberEntity.PositionType getPositionType(BlockPos pos) {
@@ -447,7 +451,6 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
                     double d = playerEntity.getX() - this.getX();
                     double e = playerEntity.getY() - this.getY();
                     double f = playerEntity.getZ() - this.getZ();
-                    double g = 0.1;
                     itemEntity.setVelocity(d * 0.1, e * 0.1 + Math.sqrt(Math.sqrt(d * d + e * e + f * f)) * 0.08, f * 0.1);
                     this.getWorld().spawnEntity(itemEntity);
                     playerEntity.getWorld()
