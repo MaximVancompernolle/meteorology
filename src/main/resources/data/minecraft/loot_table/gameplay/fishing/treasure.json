@@ -15,7 +15,7 @@
               }
             }
           ],
-          "weight": 5
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -44,7 +44,7 @@
             }
           ],
           "name": "minecraft:trident",
-          "weight": 5
+          "weight": 8
         },
         {
           "type": "minecraft:item",
@@ -119,7 +119,7 @@
               }
             }
           ],
-          "weight": 25
+          "weight": 24
         },
         {
           "type": "minecraft:item",

@@ -29,12 +29,12 @@
       "entries": [
         {
           "type": "minecraft:empty",
-          "weight": 98
+          "weight": 99
         },
         {
           "type": "minecraft:loot_table",
           "value": "meteorology:gameplay/fishing/map",
-          "weight": 2
+          "weight": 1
         }
       ],
       "rolls": 1.0

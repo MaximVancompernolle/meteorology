@@ -23,21 +23,6 @@
         }
       ],
       "rolls": 1.0
-    },
-    {
-      "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:empty",
-          "weight": 99
-        },
-        {
-          "type": "minecraft:loot_table",
-          "value": "meteorology:gameplay/fishing/map",
-          "weight": 1
-        }
-      ],
-      "rolls": 1.0
     }
   ],
   "random_sequence": "minecraft:gameplay/fishing"
