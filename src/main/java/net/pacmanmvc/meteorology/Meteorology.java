@@ -1,12 +1,12 @@
 package net.pacmanmvc.meteorology;
 
 import net.fabricmc.api.ModInitializer;
-
 import net.pacmanmvc.meteorology.block.ModBlocks;
 import net.pacmanmvc.meteorology.enchantment.ModEnchantments;
 import net.pacmanmvc.meteorology.entity.ModEntities;
 import net.pacmanmvc.meteorology.item.ModItemGroups;
 import net.pacmanmvc.meteorology.item.ModItems;
+import net.pacmanmvc.meteorology.loot.ModLootTables;
 import net.pacmanmvc.meteorology.util.ModTags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,5 +31,6 @@ public class Meteorology implements ModInitializer {
 		ModItemGroups.registerItemGroups();
 		ModTags.registerModTags();
 		ModEnchantments.registerModEnchantments();
+		ModLootTables.registerModLootTables();
 	}
 }

@@ -13,7 +13,6 @@ import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTables;
 import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
@@ -42,6 +41,8 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 import java.util.List;
+
+import static net.pacmanmvc.meteorology.loot.ModLootTables.GOOD_FISHING_LOOT_TABLE;
 
 public abstract class AbstractBobberEntity extends ProjectileEntity {
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -451,7 +452,7 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
                         .add(LootContextParameters.THIS_ENTITY, this)
                         .luck((float) this.luckBonus + playerEntity.getLuck())
                         .build(LootContextTypes.FISHING);
-                LootTable lootTable = this.getWorld().getServer().getReloadableRegistries().getLootTable(LootTables.FISHING_GAMEPLAY);
+                LootTable lootTable = this.getWorld().getServer().getReloadableRegistries().getLootTable(GOOD_FISHING_LOOT_TABLE);
                 List<ItemStack> list = lootTable.generateLoot(lootContextParameterSet);
 //                Criteria.FISHING_ROD_HOOKED.trigger((ServerPlayerEntity)playerEntity, usedItem, this, list);
 
