@@ -254,12 +254,12 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
         }
     }
 
-    protected double getSuperPercentage() {
+    public double getSuperPercentage() {
         return 0.9;
     }
 
-    protected double getGoodPercentage() {
-        return 0.6;
+    public double getGoodPercentage() {
+        return 0.7;
     }
 
     protected boolean removeIfInvalid(PlayerEntity player) {
