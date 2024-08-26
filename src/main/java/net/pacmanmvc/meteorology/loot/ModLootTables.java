@@ -9,7 +9,9 @@ import net.pacmanmvc.meteorology.Meteorology;
 
 public class ModLootTables {
 
+    public static final RegistryKey<LootTable> BAD_FISHING_LOOT_TABLE = registerLootTable("gameplay/bad_fishing");
     public static final RegistryKey<LootTable> GOOD_FISHING_LOOT_TABLE = registerLootTable("gameplay/good_fishing");
+    public static final RegistryKey<LootTable> SUPER_FISHING_LOOT_TABLE = registerLootTable("gameplay/super_fishing");
 
     private static RegistryKey<LootTable> registerLootTable(String name) {
         return LootTables.registerLootTable(RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of(Meteorology.MOD_ID, name)));

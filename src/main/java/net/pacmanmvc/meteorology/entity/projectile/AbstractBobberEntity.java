@@ -42,7 +42,7 @@ import org.slf4j.Logger;
 
 import java.util.List;
 
-import static net.pacmanmvc.meteorology.loot.ModLootTables.GOOD_FISHING_LOOT_TABLE;
+import static net.pacmanmvc.meteorology.loot.ModLootTables.*;
 
 public abstract class AbstractBobberEntity extends ProjectileEntity {
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -213,7 +213,8 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
                             this.setVelocity(this.getVelocity().add(0.0, -0.1 * (double) this.velocityRandom.nextFloat() * (double) this.velocityRandom.nextFloat(), 0.0));
                             this.setShowExclamationMark(true);
                             if (hookCountdown <= 0) {
-                                this.hookCountdown = MathHelper.nextInt(this.random, 20, 40);
+                                this.playSound(SoundEvents.ENTITY_ARROW_HIT_PLAYER, 0.25F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
+                                this.hookCountdown = MathHelper.nextInt(this.random, 20, 60);
                                 this.maxHookCountdown = hookCountdown;
                             }
                         } else {
@@ -251,6 +252,14 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
             this.setVelocity(this.getVelocity().multiply(0.92));
             this.refreshPosition();
         }
+    }
+
+    protected double getSuperPercentage() {
+        return 0.9;
+    }
+
+    protected double getGoodPercentage() {
+        return 0.6;
     }
 
     protected boolean removeIfInvalid(PlayerEntity player) {
@@ -452,7 +461,16 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
                         .add(LootContextParameters.THIS_ENTITY, this)
                         .luck((float) this.luckBonus + playerEntity.getLuck())
                         .build(LootContextTypes.FISHING);
-                LootTable lootTable = this.getWorld().getServer().getReloadableRegistries().getLootTable(GOOD_FISHING_LOOT_TABLE);
+                LootTable lootTable;
+                double exclamationTicks = this.getHookCountdownPercentage();
+
+                if (exclamationTicks > this.getSuperPercentage()) {
+                    lootTable = this.getWorld().getServer().getReloadableRegistries().getLootTable(SUPER_FISHING_LOOT_TABLE);
+                } else if (exclamationTicks > this.getGoodPercentage()) {
+                    lootTable = this.getWorld().getServer().getReloadableRegistries().getLootTable(GOOD_FISHING_LOOT_TABLE);
+                } else {
+                    lootTable = this.getWorld().getServer().getReloadableRegistries().getLootTable(BAD_FISHING_LOOT_TABLE);
+                }
                 List<ItemStack> list = lootTable.generateLoot(lootContextParameterSet);
 //                Criteria.FISHING_ROD_HOOKED.trigger((ServerPlayerEntity)playerEntity, usedItem, this, list);
 
