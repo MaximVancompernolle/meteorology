@@ -23,7 +23,7 @@
             }
           ],
           "name": "minecraft:map",
-          "weight": 50
+          "weight": 80
         },
         {
           "type": "minecraft:item",
@@ -45,48 +45,6 @@
           ],
           "name": "minecraft:map",
           "weight": 20
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "decoration": "trial_chambers",
-              "destination": "on_trial_chambers_maps",
-              "function": "minecraft:exploration_map",
-              "skip_existing_chunks": false,
-              "zoom": 1
-            },
-            {
-              "function": "minecraft:set_name",
-              "name": {
-                "translate": "filled_map.trial_chambers"
-              },
-              "target": "item_name"
-            }
-          ],
-          "name": "minecraft:map",
-          "weight": 20
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "decoration": "mansion",
-              "destination": "on_woodland_explorer_maps",
-              "function": "minecraft:exploration_map",
-              "skip_existing_chunks": false,
-              "zoom": 1
-            },
-            {
-              "function": "minecraft:set_name",
-              "name": {
-                "translate": "filled_map.mansion"
-              },
-              "target": "item_name"
-            }
-          ],
-          "name": "minecraft:map",
-          "weight": 10
         }
       ],
       "rolls": 1.0
