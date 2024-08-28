@@ -52,12 +52,12 @@ public class SuperBobberEntity extends AbstractBobberEntity {
     }
 
     @Override
-    protected double getSuperPercentage() {
+    public double getSuperPercentage() {
         return 0.8;
     }
 
     @Override
-    protected double getGoodPercentage() {
-        return 0.5;
+    public double getGoodPercentage() {
+        return 0.6;
     }
 }

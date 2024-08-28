@@ -57,9 +57,9 @@ public abstract class MeteorologyBobberEntityRenderer extends EntityRenderer<Abs
 
                 double exclamationTicks = bobberEntity.getHookCountdownPercentage();
 
-                if (exclamationTicks > 0.8) {
+                if (exclamationTicks > bobberEntity.getSuperPercentage()) {
                     renderLayer(matrixStack, vertexConsumerProvider, i, entry3, EXCLAMATION_MARK_LAYER_GREEN);
-                } else if (exclamationTicks > 0.5) {
+                } else if (exclamationTicks > bobberEntity.getGoodPercentage()) {
                     renderLayer(matrixStack, vertexConsumerProvider, i, entry3, EXCLAMATION_MARK_LAYER_ORANGE);
                 } else {
                     renderLayer(matrixStack, vertexConsumerProvider, i, entry3, EXCLAMATION_MARK_LAYER_RED);
