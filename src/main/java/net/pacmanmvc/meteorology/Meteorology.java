@@ -8,6 +8,7 @@ import net.pacmanmvc.meteorology.item.ModItemGroups;
 import net.pacmanmvc.meteorology.item.ModItems;
 import net.pacmanmvc.meteorology.loot.ModLootTables;
 import net.pacmanmvc.meteorology.util.ModTags;
+import net.pacmanmvc.meteorology.village.ModTradeOffers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,5 +33,6 @@ public class Meteorology implements ModInitializer {
 		ModTags.registerModTags();
 		ModEnchantments.registerModEnchantments();
 		ModLootTables.registerModLootTables();
+		ModTradeOffers.registerTradeOffers();
 	}
 }
