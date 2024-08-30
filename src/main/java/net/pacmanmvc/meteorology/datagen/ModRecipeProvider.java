@@ -80,6 +80,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(ModItems.RUBY), conditionsFromItem(ModItems.RUBY))
                 .offerTo(exporter, Identifier.of(Meteorology.MOD_ID, getRecipeName(ModItems.RUBY_SHOVEL)));
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.BONE_HOE, 1)
+                .pattern("##")
+                .pattern(" S")
+                .pattern(" S")
+                .input('#', Items.BONE_BLOCK)
+                .input('S', Items.BONE)
+                .criterion(hasItem(Items.BONE_BLOCK), conditionsFromItem(Items.BONE_BLOCK))
+                .criterion(hasItem(Items.BONE), conditionsFromItem(Items.BONE))
+                .offerTo(exporter, Identifier.of(Meteorology.MOD_ID, getRecipeName(ModItems.BONE_HOE)));
+
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.RUBY_SWORD, 1)
                 .pattern("#")
                 .pattern("#")
