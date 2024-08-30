@@ -254,13 +254,9 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
         }
     }
 
-    public double getSuperPercentage() {
-        return 0.9;
-    }
+    public abstract double getSuperPercentage();
 
-    public double getGoodPercentage() {
-        return 0.7;
-    }
+    public abstract double getGoodPercentage();
 
     protected boolean removeIfInvalid(PlayerEntity player) {
         ItemStack itemStack = player.getMainHandStack();
