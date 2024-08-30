@@ -22,12 +22,6 @@ public class ModBlocks {
                     .requiresTool()
                     .strength(5.0F, 6.0F)
                     .sounds(BlockSoundGroup.METAL)));
-    public static final Block RAW_RUBY_BLOCK = registerBlock("raw_ruby_block", new Block(
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.DARK_RED)
-                    .instrument(NoteBlockInstrument.BASEDRUM)
-                    .requiresTool()
-                    .strength(5.0F, 6.0F)));
     public static final Block RUBY_ORE = registerBlock("ruby_ore", new ExperienceDroppingBlock(
             ConstantIntProvider.create(0),
             AbstractBlock.Settings.create()

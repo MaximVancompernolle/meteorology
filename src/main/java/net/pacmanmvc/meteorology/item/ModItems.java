@@ -9,7 +9,6 @@ import net.pacmanmvc.meteorology.Meteorology;
 
 public class ModItems {
     public static final Item RUBY = registerItem("ruby", new Item(new Item.Settings()));
-    public static final Item RAW_RUBY = registerItem("raw_ruby", new Item(new Item.Settings()));
 
     public static final Item RUBY_AXE = registerItem("ruby_axe", new AxeItem(ModToolMaterial.RUBY, new Item.Settings().
             attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterial.RUBY, 6.0F, -3.0F))));

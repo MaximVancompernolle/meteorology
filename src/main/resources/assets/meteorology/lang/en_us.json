@@ -1,6 +1,5 @@
 {
   "item.meteorology.ruby": "Ruby",
-  "item.meteorology.raw_ruby": "Raw Ruby",
 
   "item.meteorology.ruby_axe": "Ruby Axe",
   "item.meteorology.ruby_hoe": "Ruby Hoe",
@@ -20,7 +19,6 @@
   "item.meteorology.ruby_boots": "Ruby Boots",
 
   "block.meteorology.ruby_block": "Block of Ruby",
-  "block.meteorology.raw_ruby_block": "Block of Raw Ruby",
   "block.meteorology.ruby_ore": "Ruby Ore",
   "block.meteorology.deepslate_ruby_ore": "Deepslate Ruby Ore",
 
