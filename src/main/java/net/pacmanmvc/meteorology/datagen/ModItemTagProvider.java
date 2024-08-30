@@ -2,6 +2,7 @@ package net.pacmanmvc.meteorology.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 import net.pacmanmvc.meteorology.item.ModItems;
@@ -46,6 +47,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.BONE_HOE);
 
         getOrCreateTagBuilder(ModTags.Items.FISHING_RODS)
-                .add(ModItems.GOOD_ROD, ModItems.SUPER_ROD);
+                .add(Items.FISHING_ROD, ModItems.GOOD_ROD, ModItems.SUPER_ROD);
     }
 }
