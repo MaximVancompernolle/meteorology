@@ -1,6 +1,5 @@
 {
   "item.meteorology.ruby": "Ruby",
-  "item.meteorology.raw_ruby": "Raw Ruby",
 
   "item.meteorology.ruby_axe": "Ruby Axe",
   "item.meteorology.ruby_hoe": "Ruby Hoe",
@@ -9,27 +8,27 @@
   "item.meteorology.ruby_sword": "Ruby Sword",
 
   "item.meteorology.bone_hoe": "Bone Hoe",
+
   "item.meteorology.good_rod": "Good Rod",
   "item.meteorology.super_rod": "Super Rod",
+  "item.meteorology.flippers": "Flippers",
 
   "item.meteorology.ruby_helmet": "Ruby Helmet",
   "item.meteorology.ruby_chestplate": "Ruby Chestplate",
   "item.meteorology.ruby_leggings": "Ruby Leggings",
   "item.meteorology.ruby_boots": "Ruby Boots",
-  "item.meteorology.flippers": "Flippers",
 
   "block.meteorology.ruby_block": "Block of Ruby",
-  "block.meteorology.raw_ruby_block": "Block of Raw Ruby",
   "block.meteorology.ruby_ore": "Ruby Ore",
   "block.meteorology.deepslate_ruby_ore": "Deepslate Ruby Ore",
 
-  "itemgroup.ruby": "Ruby Item Group",
-  "itemgroup.fishing": "Fishing Item Group",
+  "itemgroup.ruby": "Ruby",
+  "itemgroup.fishing": "Fishing",
 
-  "enchantment.meteorology.fragility_curse": "Curse of Fragility",
+  "enchantment.meteorology.zoom": "Zoom",
   "enchantment.meteorology.summoner": "Summoner",
   "enchantment.meteorology.thor": "Thor",
-  "enchantment.meteorology.zoom": "Zoom",
+  "enchantment.meteorology.fragility_curse": "Curse of Fragility",
 
   "entity.minecraft.villager.meteorologer": "Meteorologer"
 }

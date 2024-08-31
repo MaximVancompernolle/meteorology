@@ -2,7 +2,6 @@
   "values": [
     "meteorology:ruby_ore",
     "meteorology:deepslate_ruby_ore",
-    "meteorology:ruby_block",
-    "meteorology:raw_ruby_block"
+    "meteorology:ruby_block"
   ]
 }

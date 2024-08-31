@@ -1,11 +1,21 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_raw_ruby": {
+    "has_bone": {
       "conditions": {
         "items": [
           {
-            "items": "meteorology:raw_ruby"
+            "items": "minecraft:bone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_bone_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:bone_block"
           }
         ]
       },
@@ -13,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:ruby_from_blasting_raw_ruby"
+        "recipe": "meteorology:bone_hoe"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +31,13 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_raw_ruby"
+      "has_bone_block",
+      "has_bone"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:ruby_from_blasting_raw_ruby"
+      "meteorology:bone_hoe"
     ]
   }
 }

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
-    private static final List<ItemConvertible> RUBY_SMELTABLES = List.of(ModItems.RAW_RUBY, ModBlocks.RUBY_ORE, ModBlocks.DEEPSLATE_RUBY_ORE);
+    private static final List<ItemConvertible> RUBY_SMELTABLES = List.of(ModBlocks.RUBY_ORE, ModBlocks.DEEPSLATE_RUBY_ORE);
 
     public ModRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
@@ -28,7 +28,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         offerSmelting(exporter, RUBY_SMELTABLES, RecipeCategory.MISC, ModItems.RUBY, 1.0F, 200, "ruby");
         offerBlasting(exporter, RUBY_SMELTABLES, RecipeCategory.MISC, ModItems.RUBY, 1.0F, 100, "ruby");
         offerReversibleCompactingRecipes(exporter, RecipeCategory.BUILDING_BLOCKS, ModItems.RUBY, RecipeCategory.MISC, ModBlocks.RUBY_BLOCK);
-        offerReversibleCompactingRecipes(exporter, RecipeCategory.BUILDING_BLOCKS, ModItems.RAW_RUBY, RecipeCategory.MISC, ModBlocks.RAW_RUBY_BLOCK);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.ENCHANTED_GOLDEN_APPLE, 1)
                 .pattern("###")
@@ -79,6 +78,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                 .criterion(hasItem(ModItems.RUBY), conditionsFromItem(ModItems.RUBY))
                 .offerTo(exporter, Identifier.of(Meteorology.MOD_ID, getRecipeName(ModItems.RUBY_SHOVEL)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.BONE_HOE, 1)
+                .pattern("##")
+                .pattern(" S")
+                .pattern(" S")
+                .input('#', Items.BONE_BLOCK)
+                .input('S', Items.BONE)
+                .criterion(hasItem(Items.BONE_BLOCK), conditionsFromItem(Items.BONE_BLOCK))
+                .criterion(hasItem(Items.BONE), conditionsFromItem(Items.BONE))
+                .offerTo(exporter, Identifier.of(Meteorology.MOD_ID, getRecipeName(ModItems.BONE_HOE)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.RUBY_SWORD, 1)
                 .pattern("#")

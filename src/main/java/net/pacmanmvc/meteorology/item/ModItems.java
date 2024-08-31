@@ -9,7 +9,6 @@ import net.pacmanmvc.meteorology.Meteorology;
 
 public class ModItems {
     public static final Item RUBY = registerItem("ruby", new Item(new Item.Settings()));
-    public static final Item RAW_RUBY = registerItem("raw_ruby", new Item(new Item.Settings()));
 
     public static final Item RUBY_AXE = registerItem("ruby_axe", new AxeItem(ModToolMaterial.RUBY, new Item.Settings().
             attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterial.RUBY, 6.0F, -3.0F))));
@@ -23,13 +22,13 @@ public class ModItems {
             .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterial.RUBY, 4, -2.4F))));
 
     public static final Item RUBY_HELMET = registerItem("ruby_helmet", new ArmorItem(ModArmorMaterial.RUBY, ArmorItem.Type.HELMET, new Item.Settings()
-            .maxDamage(ArmorItem.Type.HELMET.getMaxDamage(10))));
+            .maxDamage(ArmorItem.Type.HELMET.getMaxDamage(20))));
     public static final Item RUBY_CHESTPLATE = registerItem("ruby_chestplate", new ArmorItem(ModArmorMaterial.RUBY, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-            .maxDamage(ArmorItem.Type.CHESTPLATE.getMaxDamage(10))));
+            .maxDamage(ArmorItem.Type.CHESTPLATE.getMaxDamage(20))));
     public static final Item RUBY_LEGGINGS = registerItem("ruby_leggings", new ArmorItem(ModArmorMaterial.RUBY, ArmorItem.Type.LEGGINGS, new Item.Settings()
-            .maxDamage(ArmorItem.Type.LEGGINGS.getMaxDamage(10))));
+            .maxDamage(ArmorItem.Type.LEGGINGS.getMaxDamage(20))));
     public static final Item RUBY_BOOTS = registerItem("ruby_boots", new ArmorItem(ModArmorMaterial.RUBY, ArmorItem.Type.BOOTS, new Item.Settings()
-            .maxDamage(ArmorItem.Type.BOOTS.getMaxDamage(10))));
+            .maxDamage(ArmorItem.Type.BOOTS.getMaxDamage(20))));
 
     public static final Item GOOD_ROD = registerItem("good_rod", new GoodRodItem(new Item.Settings().maxDamage(128)));
     public static final Item SUPER_ROD = registerItem("super_rod", new SuperRodItem(new Item.Settings().maxDamage(256)));
