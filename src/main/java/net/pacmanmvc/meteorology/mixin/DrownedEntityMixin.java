@@ -14,7 +14,9 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.pacmanmvc.meteorology.item.ModItems;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -22,6 +24,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(DrownedEntity.class)
 public abstract class DrownedEntityMixin extends ZombieEntity implements RangedAttackMob {
+    @Shadow public abstract EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData);
+
     public DrownedEntityMixin(EntityType<? extends ZombieEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -37,9 +41,9 @@ public abstract class DrownedEntityMixin extends ZombieEntity implements RangedA
         cir.setReturnValue(entityData);
     }
 
-    @Inject(method = "initEquipment", at = @At("HEAD"))
+    @Inject(method = "initEquipment", at = @At("HEAD"), cancellable = true)
     public void initEquipment(Random random, LocalDifficulty localDifficulty, CallbackInfo ci) {
-        if ((double) random.nextFloat() > 0.8) {
+        if (random.nextFloat() > 0.8F) {
             int i = random.nextInt(16);
             if (i < 10) {
                 this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.TRIDENT));
@@ -51,5 +55,7 @@ public abstract class DrownedEntityMixin extends ZombieEntity implements RangedA
                 this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModItems.SUPER_ROD));
             }
         }
+
+        ci.cancel();
     }
 }
