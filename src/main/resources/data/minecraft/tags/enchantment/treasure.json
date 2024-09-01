@@ -6,6 +6,7 @@
     "minecraft:frost_walker",
     "minecraft:mending",
     "minecraft:wind_burst",
-    "meteorology:thor"
+    "meteorology:summoner",
+    "meteorology:zoom"
   ]
 }
