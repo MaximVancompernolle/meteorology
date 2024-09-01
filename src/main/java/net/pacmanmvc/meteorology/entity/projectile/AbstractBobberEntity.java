@@ -213,7 +213,7 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
                             this.setVelocity(this.getVelocity().add(0.0, -0.1 * (double) this.velocityRandom.nextFloat() * (double) this.velocityRandom.nextFloat(), 0.0));
                             this.setShowExclamationMark(true);
                             if (hookCountdown <= 0) {
-                                this.playSound(SoundEvents.ENTITY_ARROW_HIT_PLAYER, 0.25F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
+                                this.playSound(SoundEvents.ENTITY_ARROW_HIT_PLAYER, 0.5F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
                                 this.hookCountdown = MathHelper.nextInt(this.random, 20, 60);
                                 this.maxHookCountdown = hookCountdown;
                             }
