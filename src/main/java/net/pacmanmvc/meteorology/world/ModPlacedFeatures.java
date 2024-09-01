@@ -23,7 +23,7 @@ public class ModPlacedFeatures {
         RegistryEntryLookup<ConfiguredFeature<?, ?>> registryEntryLookup = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
         RegistryEntry<ConfiguredFeature<?, ?>> rubyOres = registryEntryLookup.getOrThrow(ModConfiguredFeatures.ORE_RUBY);
         register(context, ORE_RUBY, rubyOres, ModOrePlacement.modifiersWithCount(100, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-32), YOffset.fixed(480))));
-        register(context, ORE_RUBY_LARGE, rubyOres, ModOrePlacement.modifiersWithCount(9, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-80), YOffset.fixed(80))));
+        register(context, ORE_RUBY_LARGE, rubyOres, ModOrePlacement.modifiersWithCount(18, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-80), YOffset.fixed(80))));
 
     }
 
