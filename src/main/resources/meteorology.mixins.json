@@ -9,6 +9,7 @@
     "ItemMixin",
     "ItemsMixin",
     "PlayerEntityMixin",
+    "SpongeBlockMixin",
     "SwimWithPlayerGoalMixin"
   ],
   "injectors": {
