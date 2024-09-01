@@ -17,7 +17,7 @@
     "minecraft:flint_and_steel",
     "minecraft:shears",
     "minecraft:brush",
-    "#meteorology:fishing",
+    "#minecraft:enchantable/fishing",
     "minecraft:carrot_on_a_stick",
     "minecraft:warped_fungus_on_a_stick",
     "minecraft:mace"
