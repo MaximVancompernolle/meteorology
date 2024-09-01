@@ -351,7 +351,7 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
                 );
                 this.getDataTracker().set(CAUGHT_FISH, true);
             }
-        } else if (this.waitCountdown >= 0) {
+        } else if (this.waitCountdown > 0) {
             this.waitCountdown -= i;
             float f = 0.15F;
             if (this.waitCountdown < 20) {
@@ -379,7 +379,7 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
                 this.fishTravelCountdown = MathHelper.nextInt(this.random, 10, 40);
             }
         } else {
-            this.waitCountdown = MathHelper.nextInt(this.random, Math.max(0, 100 - this.waitTimeReductionTicks), 600 - this.waitTimeReductionTicks);
+            this.waitCountdown = MathHelper.nextInt(this.random, Math.max(0, 100 - this.waitTimeReductionTicks), Math.max(1, 600 - this.waitTimeReductionTicks));
         }
     }
 
