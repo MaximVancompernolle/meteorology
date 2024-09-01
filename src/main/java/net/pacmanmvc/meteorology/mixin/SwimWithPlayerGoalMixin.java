@@ -27,14 +27,4 @@ public abstract class SwimWithPlayerGoalMixin extends Goal {
     public void shouldContinue(CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(this.closestPlayer != null && this.closestPlayer.isSwimming() && this.dolphin.squaredDistanceTo(this.closestPlayer) < 512);
     }
-
-    @Inject(method = "tick", at = @At("TAIL"))
-    public void tick(CallbackInfo ci) {
-        if (this.closestPlayer.isSwimming()
-                && this.closestPlayer.getWorld().random.nextInt(6) == 0
-                && this.closestPlayer.getStatusEffect(StatusEffects.DOLPHINS_GRACE) != null
-                && this.closestPlayer.getEquippedStack(EquipmentSlot.FEET).isOf(ModItems.FLIPPERS)) {
-            this.closestPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 100, 1), this.dolphin);
-        }
-    }
 }
