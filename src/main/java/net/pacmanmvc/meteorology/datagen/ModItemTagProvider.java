@@ -46,7 +46,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ItemTags.HOES)
                 .add(ModItems.BONE_HOE);
 
-        getOrCreateTagBuilder(ModTags.Items.FISHING_RODS)
-                .add(Items.FISHING_ROD, ModItems.GOOD_ROD, ModItems.SUPER_ROD);
+        getOrCreateTagBuilder(ModTags.Items.CUSTOM_RODS)
+                .add(ModItems.GOOD_ROD, ModItems.SUPER_ROD);
     }
 }

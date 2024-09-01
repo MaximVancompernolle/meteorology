@@ -17,7 +17,7 @@ public class ModTags {
     }
 
     public static class Items {
-        public static TagKey<Item> FISHING_RODS = createTag("fishing_rods");
+        public static TagKey<Item> CUSTOM_RODS = createTag("custom_rods");
 
         private static TagKey<Item> createTag(String name) {
             return TagKey.of(RegistryKeys.ITEM, Identifier.of(Meteorology.MOD_ID, name));

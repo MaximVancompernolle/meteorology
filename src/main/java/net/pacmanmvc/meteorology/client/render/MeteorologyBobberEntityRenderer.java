@@ -97,7 +97,7 @@ public abstract class MeteorologyBobberEntityRenderer extends EntityRenderer<Abs
     private Vec3d getHandPos(PlayerEntity player, float f, float tickDelta) {
         int i = player.getMainArm() == Arm.RIGHT ? 1 : -1;
         ItemStack itemStack = player.getMainHandStack();
-        if (!itemStack.isIn(ModTags.Items.FISHING_RODS)) {
+        if (!itemStack.isIn(ModTags.Items.CUSTOM_RODS)) {
             i = -i;
         }
 

@@ -261,8 +261,8 @@ public abstract class AbstractBobberEntity extends ProjectileEntity {
     protected boolean removeIfInvalid(PlayerEntity player) {
         ItemStack itemStack = player.getMainHandStack();
         ItemStack itemStack2 = player.getOffHandStack();
-        boolean bl = itemStack.isIn(ModTags.Items.FISHING_RODS);
-        boolean bl2 = itemStack2.isIn(ModTags.Items.FISHING_RODS);
+        boolean bl = itemStack.isIn(ModTags.Items.CUSTOM_RODS);
+        boolean bl2 = itemStack2.isIn(ModTags.Items.CUSTOM_RODS);
         if (!player.isRemoved() && player.isAlive() && (bl || bl2) && !(this.squaredDistanceTo(player) > 1024.0)) {
             return false;
         } else {
