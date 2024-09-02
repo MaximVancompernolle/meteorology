@@ -90,9 +90,7 @@
             {
               "condition": "minecraft:location_check",
               "predicate": {
-                "biomes": [
-                  "#minecraft:is_river"
-                ]
+                "biomes": "#minecraft:is_river"
               }
             }
           ]
