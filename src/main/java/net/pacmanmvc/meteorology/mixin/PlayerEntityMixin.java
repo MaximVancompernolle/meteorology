@@ -1,5 +1,6 @@
 package net.pacmanmvc.meteorology.mixin;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -8,6 +9,9 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.pacmanmvc.meteorology.api.entity.PlayerEntityAccessor;
 import net.pacmanmvc.meteorology.entity.projectile.AbstractBobberEntity;
@@ -29,6 +33,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
     @Shadow public int experienceLevel;
 
     @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
+
+    @Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
 
     @Unique
     public AbstractBobberEntity meteorology$fishingHook;
@@ -53,6 +59,16 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
         ItemStack itemStack2 = this.getEquippedStack(EquipmentSlot.FEET);
         if (itemStack2.isOf(ModItems.FLIPPERS) && this.isSubmergedIn(FluidTags.WATER)) {
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 100, 0, false, false, true));
+        }
+    }
+
+    @Inject(method = "playStepSound", at = @At("TAIL"))
+    public void playStepSound(BlockPos pos, BlockState state, CallbackInfo ci) {
+        if (!this.isTouchingWater()) {
+            ItemStack itemStack = this.getEquippedStack(EquipmentSlot.FEET);
+            if (itemStack.isOf(ModItems.FLIPPERS)) {
+                this.playSound(SoundEvents.ENTITY_GUARDIAN_FLOP, 0.5F, 1.0F);
+            }
         }
     }
 }
