@@ -10,9 +10,9 @@ import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.pacmanmvc.meteorology.api.entity.PlayerEntityAccessor;
+import net.pacmanmvc.meteorology.client.render.GoodBobberEntityRenderer;
 import net.pacmanmvc.meteorology.client.render.SuperBobberEntityRenderer;
 import net.pacmanmvc.meteorology.entity.ModEntities;
-import net.pacmanmvc.meteorology.client.render.GoodBobberEntityRenderer;
 import net.pacmanmvc.meteorology.item.ModItems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +37,7 @@ public class MeteorologyClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        LOGGER.info("Initializing Meteorology Client");
+        LOGGER.info("Initializing Meteorology Client Test");
         ModelPredicateProviderRegistry.register(ModItems.GOOD_ROD, Identifier.ofVanilla("cast"), MeteorologyClient::getRodTexture);
         ModelPredicateProviderRegistry.register(ModItems.SUPER_ROD, Identifier.ofVanilla("cast"), MeteorologyClient::getRodTexture);
         EntityRendererRegistry.register(ModEntities.GOOD_BOBBER, GoodBobberEntityRenderer::new);
