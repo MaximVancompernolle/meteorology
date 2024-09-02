@@ -30,5 +30,7 @@
   "enchantment.meteorology.thor": "Thor",
   "enchantment.meteorology.fragility_curse": "Curse of Fragility",
 
-  "entity.minecraft.villager.meteorologer": "Meteorologer"
+  "entity.minecraft.villager.meteorologer": "Meteorologer",
+
+  "subtitles.meteorology.flippers_flop": "Flippers flop"
 }

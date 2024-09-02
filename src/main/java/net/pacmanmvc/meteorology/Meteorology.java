@@ -7,6 +7,7 @@ import net.pacmanmvc.meteorology.entity.ModEntities;
 import net.pacmanmvc.meteorology.item.ModItemGroups;
 import net.pacmanmvc.meteorology.item.ModItems;
 import net.pacmanmvc.meteorology.loot.ModLootTables;
+import net.pacmanmvc.meteorology.sounds.ModSounds;
 import net.pacmanmvc.meteorology.util.ModTags;
 import net.pacmanmvc.meteorology.village.ModTradeOffers;
 import net.pacmanmvc.meteorology.world.gen.ModWorldGeneration;
@@ -36,5 +37,6 @@ public class Meteorology implements ModInitializer {
 		ModLootTables.registerModLootTables();
 		ModTradeOffers.registerTradeOffers();
 		ModWorldGeneration.generateModWorldGen();
+		ModSounds.registerSounds();
 	}
 }

@@ -10,12 +10,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.pacmanmvc.meteorology.api.entity.PlayerEntityAccessor;
 import net.pacmanmvc.meteorology.entity.projectile.AbstractBobberEntity;
 import net.pacmanmvc.meteorology.item.ModItems;
+import net.pacmanmvc.meteorology.sounds.ModSounds;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -67,7 +67,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
         if (!this.isTouchingWater()) {
             ItemStack itemStack = this.getEquippedStack(EquipmentSlot.FEET);
             if (itemStack.isOf(ModItems.FLIPPERS)) {
-                this.playSound(SoundEvents.ENTITY_GUARDIAN_FLOP, 0.5F, 1.0F);
+                this.playSound(ModSounds.FLIPPERS_FLOP, 0.5F, 1.0F);
             }
         }
     }
