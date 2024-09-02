@@ -10,7 +10,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.pacmanmvc.meteorology.Meteorology;
-import net.pacmanmvc.meteorology.sounds.ModSounds;
 
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,7 @@ public class ModArmorMaterial {
             ArmorItem.Type.CHESTPLATE, 10,
             ArmorItem.Type.LEGGINGS, 7,
             ArmorItem.Type.BOOTS, 4
-    ), 12, ModSounds.FLIPPER_FLOP_REFERENCE, 4.0F, 0.2F, () -> Ingredient.ofItems(ModItems.RUBY));
+    ), 12, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 4.0F, 0.2F, () -> Ingredient.ofItems(ModItems.RUBY));
     public static RegistryEntry<ArmorMaterial> register(String id,
                                                         Map<ArmorItem.Type, Integer> defense,
                                                         int enchantability,
