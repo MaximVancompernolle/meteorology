@@ -42,10 +42,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "meteorology:ruby"
-        },
-        {
-          "type": "minecraft:item",
           "functions": [
             {
               "add": false,

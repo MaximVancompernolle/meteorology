@@ -137,6 +137,14 @@
               "function": "minecraft:set_count"
             }
           ],
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": {
+                "biomes": "#minecraft:is_mountain"
+              }
+            }
+          ],
           "name": "meteorology:ruby",
           "weight": 3
         },
