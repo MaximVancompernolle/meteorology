@@ -37,7 +37,7 @@ public class MeteorologyClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        LOGGER.info("Initializing Meteorology Client Test");
+        LOGGER.info("Initializing Meteorology Client");
         ModelPredicateProviderRegistry.register(ModItems.GOOD_ROD, Identifier.ofVanilla("cast"), MeteorologyClient::getRodTexture);
         ModelPredicateProviderRegistry.register(ModItems.SUPER_ROD, Identifier.ofVanilla("cast"), MeteorologyClient::getRodTexture);
         EntityRendererRegistry.register(ModEntities.GOOD_BOBBER, GoodBobberEntityRenderer::new);
