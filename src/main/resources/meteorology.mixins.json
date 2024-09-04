@@ -6,6 +6,8 @@
     "AnvilScreenHandlerMixin",
     "EggEntityMixin",
     "ExampleMixin",
+    "FlowableFluidMixin",
+    "FluidBlockMixin",
     "ItemMixin",
     "ItemsMixin",
     "PlayerEntityMixin",

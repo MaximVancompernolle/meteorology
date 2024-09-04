@@ -19,6 +19,7 @@ public class Meteorology implements ModInitializer {
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final String MOD_ID = "meteorology";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	public static final int SPONGE_HOLD_TIME_SECONDS = 5;
 
 	@Override
 	public void onInitialize() {
