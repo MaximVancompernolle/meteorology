@@ -19,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(FlowableFluid.class)
 public class FlowableFluidMixin {
+
     @Inject(method = "canFlow", at = @At("HEAD"), cancellable = true)
     private void canFlow(
             BlockView world,
@@ -32,18 +33,18 @@ public class FlowableFluidMixin {
             CallbackInfoReturnable<Boolean> cir
     ) {
         if(fluidBlockState.getBlock() instanceof FluidDrainable && fluidBlockState.getBlock() instanceof FluidBlock block) {
-            long tickSponged = ((FluidBlockAccessor) block).meteorology$getTickSponged();
+            long tickSponged = ((FluidBlockAccessor) block).meteorology$getTickSponged(fluidPos);
             World worldWorld = (World) world;
-            if(worldWorld != null &&  worldWorld.getTime() - tickSponged <= Meteorology.SPONGE_HOLD_TIME_SECONDS * 20) {
+            long timeDiff = worldWorld.getTime() - tickSponged;
+            if (timeDiff <= Meteorology.SPONGE_HOLD_TIME_SECONDS * 20) {
+                if (!worldWorld.getFluidTickScheduler().isQueued(fluidPos, fluid)) {
+                    worldWorld.scheduleFluidTick(fluidPos, fluid, (int) (Meteorology.SPONGE_HOLD_TIME_SECONDS * 20 - timeDiff));
+                }
                 cir.setReturnValue(false);
+            } else if (tickSponged != 0) {
+                ((FluidBlockAccessor) block).meteorology$removeTickSponged(fluidPos);
             }
-//            else if (tickSponged != 0) {
-////                ((FluidBlockAccessor) block).meteorology$setTickSponged(0);
-//                assert worldWorld != null;
-//                Meteorology.LOGGER.info("Tick Difference: {}", worldWorld.getTime() - tickSponged);
-//            }
         }
-//            ((FluidBlockAccessor) block).meteorology$setTickSponged(0);
 
     }
 }
