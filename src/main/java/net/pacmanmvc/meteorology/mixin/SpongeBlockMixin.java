@@ -4,6 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -27,7 +28,9 @@ public class SpongeBlockMixin {
     @Inject(method = "absorbWater(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Z", at = @At("HEAD"), cancellable = true)
     private void absorbWater(World world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         Meteorology.LOGGER.info("Absorbing Water");
-        int count = BlockPos.iterateRecursively(pos, 6, 512, (currentPos, queuer) -> {
+        int depth = 9;
+        int iterations = 7000;
+        int count = BlockPos.iterateRecursively(pos, depth, iterations, (currentPos, queuer) -> {
             for (Direction direction : DIRECTIONS) {
                 queuer.accept(currentPos.offset(direction));
             }
@@ -35,20 +38,30 @@ public class SpongeBlockMixin {
             if (currentPos.equals(pos)) {
                 return true;
             } else {
+                Meteorology.LOGGER.info("Checking block at " + currentPos);
                 BlockState blockState = world.getBlockState(currentPos);
                 FluidState fluidState = world.getFluidState(currentPos);
                 if (!fluidState.isIn(FluidTags.WATER)) {
                     return false;
                 } else {
                     int distanceFromCenter = currentPos.getManhattanDistance(pos);
-                    if (distanceFromCenter == 5 && blockState.getBlock() instanceof FluidDrainable && blockState.getBlock() instanceof FluidBlock block) {
+                    if (currentPos.equals(new BlockPos(104, 25, -9))) {
+                        Meteorology.LOGGER.info("HERE");
+                    }
+                    if (distanceFromCenter == depth && (blockState.getBlock() instanceof FluidDrainable || blockState.getBlock() instanceof FluidFillable) && blockState.getBlock() instanceof FluidBlock block) {
                         ((FluidBlockAccessor) block).meteorology$setTickSponged(currentPos, world.getTime());
                         return false;
-                    } else if (distanceFromCenter > 4) {
+                    } else if (distanceFromCenter > depth - 1) {
                         return false;
                     }
-                    if (blockState.getBlock() instanceof FluidDrainable) {
-                        world.setBlockState(pos, Blocks.AIR.getDefaultState(), Block.NOTIFY_ALL_AND_REDRAW);
+                    if (blockState.getBlock() instanceof FluidDrainable && blockState.getBlock() instanceof Waterloggable) {
+                        if (blockState.get(Properties.WATERLOGGED)) {
+                            world.setBlockState(currentPos, blockState.with(Properties.WATERLOGGED, Boolean.FALSE), Block.NOTIFY_ALL);
+                            if (!blockState.canPlaceAt(world, currentPos)) {
+                                world.breakBlock(currentPos, true);
+                            }
+                        }
+                        return true;
                     }
 
                     if (blockState.getBlock() instanceof FluidBlock) {
